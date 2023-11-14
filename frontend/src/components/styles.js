@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.form`
   max-width: 600px;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 20px;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -42,11 +42,9 @@ export const FormButton = styled.button`
 
 export const PolicyContainer = styled.div`
   margin-top: 15px;
-  border: 1px solid #ddd;
+  border: 3px solid #ddd;
   border-radius: 8px;
   padding: 15px;
-  display: flex;
-  flex-direction: column;
 `;
 
 export const AddPolicyPointButton = styled.button`
@@ -57,6 +55,7 @@ export const AddPolicyPointButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   width: 100px;
+  height: 40px;
 
   &:hover {
     background-color: #45a049;
@@ -100,6 +99,9 @@ export const PolicyPointInput = styled.input`
   display: inline-block;
 `;
 
+export const OuterPolicyPointButton = styled.div`
+  margin-left : 80px;
+`;
 export const PolicyPointButton = styled.button`
   background-color: #4caf50;
   color: white;
@@ -107,8 +109,6 @@ export const PolicyPointButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 5px;
-  margin-left: 5px;
 
   &:hover {
     background-color: #45a049;
@@ -118,6 +118,12 @@ export const PolicyPointButton = styled.button`
 export const PolicyNumber = styled.span`
   font-weight: bold;
   margin-right: 10px;
+`;
+
+export const OuterPolicyContent = styled.div`
+  display: flex;
+  justfiy-content: center;
+  align-items: center;
 `;
 
 export const PolicyContent = styled.div`
@@ -172,3 +178,4 @@ export const Overlay = styled.div`
   align-items: center;
   justify-content: center;
 `;
+

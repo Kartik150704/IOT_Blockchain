@@ -1,17 +1,20 @@
 // DeviceForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import {
     FormContainer,
     FormLabel,
     FormInput,
     FormButton,
     PolicyContainer,
+    OuterPolicyContent,
     AddPolicyPointButton,
     SubmitButton,
     PolicyPointContainer,
     PolicyPointLabel,
     PolicyPointInput,
+    OuterPolicyPointButton,
     PolicyPointButton,
     PolicyNumber,
     PolicyContent,
@@ -24,6 +27,24 @@ import {
 
 import Modal from 'react-modal';
 
+const Navbar = styled.nav`
+  background-color: #333;
+  padding: 15px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+`;
+
+const NavbarLogo = styled.h1`
+  margin: 0;
+`;
+
+const NavbarLinks = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 
 const DeviceForm = () => {
     // State to manage device information
@@ -153,105 +174,119 @@ const DeviceForm = () => {
     };
 
     return (
-        <FormContainer onSubmit={handleSubmit}>
-            <FormLabel>
-                Device ID:
-                <FormInput
-                    type="text"
-                    name="deviceId"
-                    value={deviceInfo.deviceId}
-                    onChange={handleInputChange}
-                />
-            </FormLabel>
-            <FormLabel>
-                Device Name:
-                <FormInput
-                    type="text"
-                    name="deviceName"
-                    value={deviceInfo.deviceName}
-                    onChange={handleInputChange}
-                />
-            </FormLabel>
-            <FormLabel>
-                Device Type:
-                <FormInput
-                    type="text"
-                    name="deviceType"
-                    value={deviceInfo.deviceType}
-                    onChange={handleInputChange}
-                />
-            </FormLabel>
-            <FormLabel>
-                Device Manufacturer:
-                <FormInput
-                    type="text"
-                    name="deviceManufacturer"
-                    value={deviceInfo.deviceManufacturer}
-                    onChange={handleInputChange}
-                />
-            </FormLabel>
-            <FormLabel>
-                Manufacturer URL:
-                <FormInput
-                    type="text"
-                    name="manufacturerUrl"
-                    value={deviceInfo.manufacturerUrl}
-                    onChange={handleInputChange}
-                />
-            </FormLabel>
-            {/* Other device info inputs go here */}
-            <FormButton type="button" onClick={handleAddPolicy}>
-                Add Policy
-            </FormButton>
-            {deviceInfo.policies.map((policy, index) => (
-                <PolicyContainer key={index}>
-                    {/* <PolicyNumber>{index + 1}.</PolicyNumber> */}
-                    <PolicyContent>
-                        <FormLabel>
-                            Policy Name:
-                            <FormInput
-                                type="text"
-                                value={policy.policyName}
-                                onChange={(e) =>
-                                    handlePolicyChange(index, 'policyName', e.target.value)
-                                }
-                            />
-                        </FormLabel>
-                        <FormLabel>
-                            Policy Description:
-                            <FormInput
-                                type="text"
-                                value={policy.policyDescription}
-                                onChange={(e) =>
-                                    handlePolicyChange(index, 'policyDescription', e.target.value)
-                                }
-                            />
-                        </FormLabel>
-                    </PolicyContent>
-                    <AddPolicyPointButton
-                        type="button"
-                        onClick={() => handleAddPolicyPoint(index)}
-                    >
-                        Add Policy Point
-                    </AddPolicyPointButton>
-                    {policy.policyPoints.map((point, pointIndex) => (
-                        <PolicyPointContainer key={pointIndex}>
-                            <PolicyPointLabel>
-                                Policy Point Header:
-                                <PolicyPointInput
-                                    type="text"
-                                    value={point.header}
-                                    onChange={(e) =>
-                                        handlePolicyPointChange(
-                                            index,
-                                            pointIndex,
-                                            'header',
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                            </PolicyPointLabel>
-                            {/* <PolicyPointLabel>
+        <>
+            <Navbar>
+                <NavbarLogo>Device List</NavbarLogo>
+                {/* <NavbarLinks> */}
+                {/* <NavbarLink to="/">Home</NavbarLink> */}
+                {/* <NavbarLink to="/about">About</NavbarLink> */}
+                {/* Home */}
+                {/* Add more links as needed */}
+                {/* </NavbarLinks> */}
+            </Navbar>
+            <FormContainer onSubmit={handleSubmit}>
+                <FormLabel>
+                    Device ID:
+                    <FormInput
+                        type="text"
+                        name="deviceId"
+                        value={deviceInfo.deviceId}
+                        onChange={handleInputChange}
+                    />
+                </FormLabel>
+                <FormLabel>
+                    Device Name:
+                    <FormInput
+                        type="text"
+                        name="deviceName"
+                        value={deviceInfo.deviceName}
+                        onChange={handleInputChange}
+                    />
+                </FormLabel>
+                <FormLabel>
+                    Device Type:
+                    <FormInput
+                        type="text"
+                        name="deviceType"
+                        value={deviceInfo.deviceType}
+                        onChange={handleInputChange}
+                    />
+                </FormLabel>
+                <FormLabel>
+                    Device Manufacturer:
+                    <FormInput
+                        type="text"
+                        name="deviceManufacturer"
+                        value={deviceInfo.deviceManufacturer}
+                        onChange={handleInputChange}
+                    />
+                </FormLabel>
+                <FormLabel>
+                    Manufacturer URL:
+                    <FormInput
+                        type="text"
+                        name="manufacturerUrl"
+                        value={deviceInfo.manufacturerUrl}
+                        onChange={handleInputChange}
+                    />
+                </FormLabel>
+                {/* Other device info inputs go here */}
+                <FormButton type="button" onClick={handleAddPolicy}>
+                    Add Policy
+                </FormButton>
+                {deviceInfo.policies.map((policy, index) => (
+                    <PolicyContainer key={index}>
+                        {/* <PolicyNumber>{index + 1}.</PolicyNumber> */}
+                        <OuterPolicyContent>
+                            <PolicyContent>
+                                <FormLabel>
+                                    Policy Name:
+                                    <FormInput
+                                        type="text"
+                                        value={policy.policyName}
+                                        onChange={(e) =>
+                                            handlePolicyChange(index, 'policyName', e.target.value)
+                                        }
+                                    />
+                                </FormLabel>
+                                <FormLabel>
+                                    Policy Description:
+                                    <FormInput
+                                        type="text"
+                                        value={policy.policyDescription}
+                                        onChange={(e) =>
+                                            handlePolicyChange(index, 'policyDescription', e.target.value)
+                                        }
+                                    />
+                                </FormLabel>
+                            </PolicyContent>
+                            <OuterPolicyPointButton>
+                            <AddPolicyPointButton
+                                type="button"
+                                onClick={() => handleAddPolicyPoint(index)}
+                            >
+                                Add Policy Point
+                            </AddPolicyPointButton>
+                            </OuterPolicyPointButton>
+                        </OuterPolicyContent>
+                        {policy.policyPoints.map((point, pointIndex) => (
+                            <PolicyPointContainer key={pointIndex}>
+                                <PolicyPointLabel>
+                                    Policy Point Header:
+                                    <PolicyPointInput
+                                        type="text"
+                                        value={point.header}
+                                        onChange={(e) =>
+                                            handlePolicyPointChange(
+                                                index,
+                                                pointIndex,
+                                                'header',
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                </PolicyPointLabel>
+                                {/* <PolicyPointLabel>
                 Policy Point Description:
                 <PolicyPointInput
                   type="text"
@@ -266,23 +301,25 @@ const DeviceForm = () => {
                   }
                 />
               </PolicyPointLabel> */}
-                        </PolicyPointContainer>
-                    ))}
-                </PolicyContainer>
-            ))}
+                            </PolicyPointContainer>
+                        ))}
+                    </PolicyContainer>
+                ))}
 
-            {/* The Modal */}
-            {modalIsOpen && (
-                <Overlay>
-                    <CustomModal>
-                        {/* Display the modal message */}
-                        <p>{modalMessage}</p>
-                        <ModalButton onClick={closeModal}>Close</ModalButton>
-                    </CustomModal>
-                </Overlay>
-            )}
-            <SubmitButton type="submit">Submit</SubmitButton>
-        </FormContainer>
+                {/* The Modal */}
+                {modalIsOpen && (
+                    <Overlay>
+                        <CustomModal>
+                            {/* Display the modal message */}
+                            <p>{modalMessage}</p>
+                            <ModalButton onClick={closeModal}>Close</ModalButton>
+                        </CustomModal>
+                    </Overlay>
+                )}
+                <SubmitButton type="submit">Submit</SubmitButton>
+            </FormContainer>
+        </>
+
     );
 };
 
