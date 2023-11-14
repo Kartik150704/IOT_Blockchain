@@ -69,7 +69,6 @@ export const SubmitButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin-top: 15px;
-  margin-left: 10px;
 
   &:hover {
     background-color: #45a049;
@@ -89,12 +88,13 @@ export const PolicyPointLabel = styled.label`
 `;
 
 export const PolicyPointInput = styled.input`
-  width: 100%;
+  width: calc(50% - 5px);
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  display: inline-block;
 `;
 
 export const PolicyPointButton = styled.button`
@@ -109,4 +109,25 @@ export const PolicyPointButton = styled.button`
   &:hover {
     background-color: #45a049;
   }
+`;
+
+export const PolicyNumber = styled.span`
+  font-weight: bold;
+  margin-right: 10px;
+`;
+
+export const PolicyContent = styled.div`
+  display: inline-block;
+  width: calc(50% - 5px);
+  vertical-align: top;
+  margin-bottom: 10px;
+`;
+
+export const PolicyHeader = styled.h3`
+  margin-top: 0;
+`;
+
+export const PolicyDescription = styled.p`
+  margin-bottom: 0;
+  color: #555;
 `;
