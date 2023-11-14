@@ -9,7 +9,6 @@ async function compile_deploy(contractName, filePath) {
   const sourceCode = await fs.readFile(filePath, "utf8");
   const { abi, bytecode } = compile(sourceCode, contractName);
 
-
   const contractInterface = {
     name: contractName,
     sourceCode: sourceCode,
@@ -20,7 +19,7 @@ async function compile_deploy(contractName, filePath) {
 
   const artifact = JSON.stringify(contractInterface, null, 2);
 
-  await fs.writeFile(`${contractName}.json`, artifact);
+  // await fs.writeFile(`${contractName}.json`, artifact);
 
   console.log(`Compiled Successfully !!!`);
 
@@ -51,7 +50,7 @@ async function compile_deploy(contractName, filePath) {
  
   console.log(`Contract deployed at ${deployedContract.options.address}`);
   
-  return deployedContract.options.address
+  return {deployAddress:deployedContract.options.address,abi:abi}
   
 
 
@@ -74,4 +73,4 @@ function compile(sourceCode, contractName) {
 }
 
 
-module.exports={compile_deploy}
+module.exports=compile_deploy
