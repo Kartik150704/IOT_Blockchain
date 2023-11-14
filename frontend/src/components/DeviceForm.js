@@ -17,7 +17,13 @@ import {
     PolicyContent,
     PolicyHeader,
     PolicyDescription,
+    CustomModal,
+    ModalButton,
+    Overlay
 } from './styles'; // Import the styled components
+
+import Modal from 'react-modal';
+
 
 const DeviceForm = () => {
     // State to manage device information
@@ -29,6 +35,9 @@ const DeviceForm = () => {
         manufacturerUrl: '',
         policies: [],
     });
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
 
     // Handler for input changes
     const handleInputChange = (e) => {
@@ -102,7 +111,7 @@ const DeviceForm = () => {
 
         try {
             // Send the form data to the backend endpoint using fetch
-            const response = await fetch('/api/devices', {
+            const response = await fetch('http://localhost:8000/administrator/savedevice', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -110,19 +119,37 @@ const DeviceForm = () => {
                 body: JSON.stringify(deviceInfo),
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
             // Parse the JSON response from the backend
             const responseData = await response.json();
 
-            // Handle the response from the backend as needed
-            console.log('Backend response:', responseData);
+            // Check if the response is successful
+            if (true) {
+                // Set modal message for success
+                setModalMessage('Device info successfully stored in smart contract!');
+            } else {
+                // Set modal message for error
+                setModalMessage(`Error while adding info to smart contract: ${responseData.message}`);
+            }
+
+            // Open the modal
+            setModalIsOpen(true);
+
         } catch (error) {
             // Handle any errors that occurred during the request
             console.error('Error sending data to the backend:', error);
+            // Set modal message for a generic error
+            setModalMessage('Error while processing the request. Please try again.');
+
+            // Open the modal
+            setModalIsOpen(true);
         }
+    };
+
+    // Handler to close the modal
+    const closeModal = () => {
+        setModalIsOpen(false);
+        // Clear the modal message
+        setModalMessage('');
     };
 
     return (
@@ -178,7 +205,7 @@ const DeviceForm = () => {
             </FormButton>
             {deviceInfo.policies.map((policy, index) => (
                 <PolicyContainer key={index}>
-                    <PolicyNumber>{index + 1}.</PolicyNumber>
+                    {/* <PolicyNumber>{index + 1}.</PolicyNumber> */}
                     <PolicyContent>
                         <FormLabel>
                             Policy Name:
@@ -243,6 +270,17 @@ const DeviceForm = () => {
                     ))}
                 </PolicyContainer>
             ))}
+
+            {/* The Modal */}
+            {modalIsOpen && (
+                <Overlay>
+                    <CustomModal>
+                        {/* Display the modal message */}
+                        <p>{modalMessage}</p>
+                        <ModalButton onClick={closeModal}>Close</ModalButton>
+                    </CustomModal>
+                </Overlay>
+            )}
             <SubmitButton type="submit">Submit</SubmitButton>
         </FormContainer>
     );

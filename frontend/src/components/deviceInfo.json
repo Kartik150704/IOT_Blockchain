@@ -1,0 +1,550 @@
+[
+  {
+    "deviceId": "1",
+    "deviceName": "Smartphone X",
+    "deviceType": "Mobile",
+    "deviceManufacturer": "ABC Electronics",
+    "manufacturerUrl": "https://abc-electronics.com",
+    "deviceHash": "abcdef123456",
+    "privacyPolicies": [
+      {
+        "policyName": "Location Privacy",
+        "policyDescription": "This policy governs the collection and use of location data.",
+        "policyPoints": [
+          "We may collect your device's GPS coordinates.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services."
+        ]
+      },
+      {
+        "policyName": "Data Encryption",
+        "policyDescription": "This policy outlines how we encrypt and secure your data.",
+        "policyPoints": [
+          "All data transmitted between the device and our servers is encrypted.",
+          "We use industry-standard encryption algorithms to protect your information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "2",
+    "deviceName": "Laptop Pro",
+    "deviceType": "Laptop",
+    "deviceManufacturer": "XYZ Tech",
+    "manufacturerUrl": "https://xyztech.com",
+    "deviceHash": "789012345abc",
+    "privacyPolicies": [
+      {
+        "policyName": "User Authentication",
+        "policyDescription": "This policy outlines the methods used for user authentication.",
+        "policyPoints": [
+          "User accounts are protected by strong passwords.",
+          "We may implement multi-factor authentication for added security."
+        ]
+      },
+      {
+        "policyName": "Data Backups",
+        "policyDescription": "This policy describes how we handle data backups.",
+        "policyPoints": [
+          "Regular backups of user data are performed to prevent data loss.",
+          "Backups are stored in secure, offsite locations."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "3",
+    "deviceName": "Smart TV Deluxe",
+    "deviceType": "Smart TV",
+    "deviceManufacturer": "PQR Electronics",
+    "manufacturerUrl": "https://pqrelectronics.com",
+    "deviceHash": "4567890defab",
+    "privacyPolicies": [
+      {
+        "policyName": "Voice Recognition",
+        "policyDescription": "This policy covers the use of voice recognition features.",
+        "policyPoints": [
+          "Voice data may be processed to improve voice recognition accuracy.",
+          "We do not store voice recordings beyond the necessary processing period."
+        ]
+      },
+      {
+        "policyName": "Ad Tracking",
+        "policyDescription": "This policy governs the tracking of advertisements.",
+        "policyPoints": [
+          "We may collect data on ad views and interactions.",
+          "Ad tracking is used to provide more relevant advertisements."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "4",
+    "deviceName": "Fitness Tracker Pro",
+    "deviceType": "Wearable",
+    "deviceManufacturer": "LMN Wearables",
+    "manufacturerUrl": "https://lmnwearables.com",
+    "deviceHash": "cdef123456789",
+    "privacyPolicies": [
+      {
+        "policyName": "Health Data Collection",
+        "policyDescription": "This policy outlines the collection of health-related data.",
+        "policyPoints": [
+          "We may collect data such as heart rate and step count.",
+          "Health data is used for providing personalized insights and recommendations."
+        ]
+      },
+      {
+        "policyName": "Data Security",
+        "policyDescription": "This policy describes how we ensure the security of user data.",
+        "policyPoints": [
+          "User health data is stored securely and accessed only for authorized purposes.",
+          "We implement encryption and access controls to protect health information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "5",
+    "deviceName": "Home Security System",
+    "deviceType": "Security",
+    "deviceManufacturer": "Security Solutions Inc.",
+    "manufacturerUrl": "https://securitysolutions.com",
+    "deviceHash": "89012345ghij",
+    "privacyPolicies": [
+      {
+        "policyName": "Video Surveillance",
+        "policyDescription": "This policy governs the use of video surveillance features.",
+        "policyPoints": [
+          "Video footage may be recorded for security purposes.",
+          "Access to video data is restricted to authorized users."
+        ]
+      },
+      {
+        "policyName": "Data Retention",
+        "policyDescription": "This policy outlines the retention period for collected data.",
+        "policyPoints": [
+          "Collected data is retained for a specified period, after which it is securely deleted.",
+          "Retention periods are defined based on legal and security requirements."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "1",
+    "deviceName": "Smartphone X",
+    "deviceType": "Mobile",
+    "deviceManufacturer": "ABC Electronics",
+    "manufacturerUrl": "https://abc-electronics.com",
+    "deviceHash": "abcdef123456",
+    "privacyPolicies": [
+      {
+        "policyName": "Location Privacy",
+        "policyDescription": "This policy governs the collection and use of location data.",
+        "policyPoints": [
+          "We may collect your device's GPS coordinates.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services."
+        ]
+      },
+      {
+        "policyName": "Data Encryption",
+        "policyDescription": "This policy outlines how we encrypt and secure your data.",
+        "policyPoints": [
+          "All data transmitted between the device and our servers is encrypted.",
+          "We use industry-standard encryption algorithms to protect your information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "2",
+    "deviceName": "Laptop Pro",
+    "deviceType": "Laptop",
+    "deviceManufacturer": "XYZ Tech",
+    "manufacturerUrl": "https://xyztech.com",
+    "deviceHash": "789012345abc",
+    "privacyPolicies": [
+      {
+        "policyName": "User Authentication",
+        "policyDescription": "This policy outlines the methods used for user authentication.",
+        "policyPoints": [
+          "User accounts are protected by strong passwords.",
+          "We may implement multi-factor authentication for added security."
+        ]
+      },
+      {
+        "policyName": "Data Backups",
+        "policyDescription": "This policy describes how we handle data backups.",
+        "policyPoints": [
+          "Regular backups of user data are performed to prevent data loss.",
+          "Backups are stored in secure, offsite locations."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "3",
+    "deviceName": "Smart TV Deluxe",
+    "deviceType": "Smart TV",
+    "deviceManufacturer": "PQR Electronics",
+    "manufacturerUrl": "https://pqrelectronics.com",
+    "deviceHash": "4567890defab",
+    "privacyPolicies": [
+      {
+        "policyName": "Voice Recognition",
+        "policyDescription": "This policy covers the use of voice recognition features.",
+        "policyPoints": [
+          "Voice data may be processed to improve voice recognition accuracy.",
+          "We do not store voice recordings beyond the necessary processing period."
+        ]
+      },
+      {
+        "policyName": "Ad Tracking",
+        "policyDescription": "This policy governs the tracking of advertisements.",
+        "policyPoints": [
+          "We may collect data on ad views and interactions.",
+          "Ad tracking is used to provide more relevant advertisements."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "4",
+    "deviceName": "Fitness Tracker Pro",
+    "deviceType": "Wearable",
+    "deviceManufacturer": "LMN Wearables",
+    "manufacturerUrl": "https://lmnwearables.com",
+    "deviceHash": "cdef123456789",
+    "privacyPolicies": [
+      {
+        "policyName": "Health Data Collection",
+        "policyDescription": "This policy outlines the collection of health-related data.",
+        "policyPoints": [
+          "We may collect data such as heart rate and step count.",
+          "Health data is used for providing personalized insights and recommendations."
+        ]
+      },
+      {
+        "policyName": "Data Security",
+        "policyDescription": "This policy describes how we ensure the security of user data.",
+        "policyPoints": [
+          "User health data is stored securely and accessed only for authorized purposes.",
+          "We implement encryption and access controls to protect health information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "5",
+    "deviceName": "Home Security System",
+    "deviceType": "Security",
+    "deviceManufacturer": "Security Solutions Inc.",
+    "manufacturerUrl": "https://securitysolutions.com",
+    "deviceHash": "89012345ghij",
+    "privacyPolicies": [
+      {
+        "policyName": "Video Surveillance",
+        "policyDescription": "This policy governs the use of video surveillance features.",
+        "policyPoints": [
+          "Video footage may be recorded for security purposes.",
+          "Access to video data is restricted to authorized users."
+        ]
+      },
+      {
+        "policyName": "Data Retention",
+        "policyDescription": "This policy outlines the retention period for collected data.",
+        "policyPoints": [
+          "Collected data is retained for a specified period, after which it is securely deleted.",
+          "Retention periods are defined based on legal and security requirements."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "1",
+    "deviceName": "Smartphone X",
+    "deviceType": "Mobile",
+    "deviceManufacturer": "ABC Electronics",
+    "manufacturerUrl": "https://abc-electronics.com",
+    "deviceHash": "abcdef123456",
+    "privacyPolicies": [
+      {
+        "policyName": "Location Privacy",
+        "policyDescription": "This policy governs the collection and use of location data.",
+        "policyPoints": [
+          "We may collect your device's GPS coordinates.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services."
+        ]
+      },
+      {
+        "policyName": "Data Encryption",
+        "policyDescription": "This policy outlines how we encrypt and secure your data.",
+        "policyPoints": [
+          "All data transmitted between the device and our servers is encrypted.",
+          "We use industry-standard encryption algorithms to protect your information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "2",
+    "deviceName": "Laptop Pro",
+    "deviceType": "Laptop",
+    "deviceManufacturer": "XYZ Tech",
+    "manufacturerUrl": "https://xyztech.com",
+    "deviceHash": "789012345abc",
+    "privacyPolicies": [
+      {
+        "policyName": "User Authentication",
+        "policyDescription": "This policy outlines the methods used for user authentication.",
+        "policyPoints": [
+          "User accounts are protected by strong passwords.",
+          "We may implement multi-factor authentication for added security."
+        ]
+      },
+      {
+        "policyName": "Data Backups",
+        "policyDescription": "This policy describes how we handle data backups.",
+        "policyPoints": [
+          "Regular backups of user data are performed to prevent data loss.",
+          "Backups are stored in secure, offsite locations."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "3",
+    "deviceName": "Smart TV Deluxe",
+    "deviceType": "Smart TV",
+    "deviceManufacturer": "PQR Electronics",
+    "manufacturerUrl": "https://pqrelectronics.com",
+    "deviceHash": "4567890defab",
+    "privacyPolicies": [
+      {
+        "policyName": "Voice Recognition",
+        "policyDescription": "This policy covers the use of voice recognition features.",
+        "policyPoints": [
+          "Voice data may be processed to improve voice recognition accuracy.",
+          "We do not store voice recordings beyond the necessary processing period."
+        ]
+      },
+      {
+        "policyName": "Ad Tracking",
+        "policyDescription": "This policy governs the tracking of advertisements.",
+        "policyPoints": [
+          "We may collect data on ad views and interactions.",
+          "Ad tracking is used to provide more relevant advertisements."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "4",
+    "deviceName": "Fitness Tracker Pro",
+    "deviceType": "Wearable",
+    "deviceManufacturer": "LMN Wearables",
+    "manufacturerUrl": "https://lmnwearables.com",
+    "deviceHash": "cdef123456789",
+    "privacyPolicies": [
+      {
+        "policyName": "Health Data Collection",
+        "policyDescription": "This policy outlines the collection of health-related data.",
+        "policyPoints": [
+          "We may collect data such as heart rate and step count.",
+          "Health data is used for providing personalized insights and recommendations."
+        ]
+      },
+      {
+        "policyName": "Data Security",
+        "policyDescription": "This policy describes how we ensure the security of user data.",
+        "policyPoints": [
+          "User health data is stored securely and accessed only for authorized purposes.",
+          "We implement encryption and access controls to protect health information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "5",
+    "deviceName": "Home Security System",
+    "deviceType": "Security",
+    "deviceManufacturer": "Security Solutions Inc.",
+    "manufacturerUrl": "https://securitysolutions.com",
+    "deviceHash": "89012345ghij",
+    "privacyPolicies": [
+      {
+        "policyName": "Video Surveillance",
+        "policyDescription": "This policy governs the use of video surveillance features.",
+        "policyPoints": [
+          "Video footage may be recorded for security purposes.",
+          "Access to video data is restricted to authorized users."
+        ]
+      },
+      {
+        "policyName": "Data Retention",
+        "policyDescription": "This policy outlines the retention period for collected data.",
+        "policyPoints": [
+          "Collected data is retained for a specified period, after which it is securely deleted.",
+          "Retention periods are defined based on legal and security requirements."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "1",
+    "deviceName": "Smartphone X",
+    "deviceType": "Mobile",
+    "deviceManufacturer": "ABC Electronics",
+    "manufacturerUrl": "https://abc-electronics.com",
+    "deviceHash": "abcdef123456",
+    "privacyPolicies": [
+      {
+        "policyName": "Location Privacy",
+        "policyDescription": "This policy governs the collection and use of location data.",
+        "policyPoints": [
+          "We may collect your device's GPS coordinates.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services.",
+          "Location data is used for providing location-based services."
+        ]
+      },
+      {
+        "policyName": "Data Encryption",
+        "policyDescription": "This policy outlines how we encrypt and secure your data.",
+        "policyPoints": [
+          "All data transmitted between the device and our servers is encrypted.",
+          "We use industry-standard encryption algorithms to protect your information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "2",
+    "deviceName": "Laptop Pro",
+    "deviceType": "Laptop",
+    "deviceManufacturer": "XYZ Tech",
+    "manufacturerUrl": "https://xyztech.com",
+    "deviceHash": "789012345abc",
+    "privacyPolicies": [
+      {
+        "policyName": "User Authentication",
+        "policyDescription": "This policy outlines the methods used for user authentication.",
+        "policyPoints": [
+          "User accounts are protected by strong passwords.",
+          "We may implement multi-factor authentication for added security."
+        ]
+      },
+      {
+        "policyName": "Data Backups",
+        "policyDescription": "This policy describes how we handle data backups.",
+        "policyPoints": [
+          "Regular backups of user data are performed to prevent data loss.",
+          "Backups are stored in secure, offsite locations."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "3",
+    "deviceName": "Smart TV Deluxe",
+    "deviceType": "Smart TV",
+    "deviceManufacturer": "PQR Electronics",
+    "manufacturerUrl": "https://pqrelectronics.com",
+    "deviceHash": "4567890defab",
+    "privacyPolicies": [
+      {
+        "policyName": "Voice Recognition",
+        "policyDescription": "This policy covers the use of voice recognition features.",
+        "policyPoints": [
+          "Voice data may be processed to improve voice recognition accuracy.",
+          "We do not store voice recordings beyond the necessary processing period."
+        ]
+      },
+      {
+        "policyName": "Ad Tracking",
+        "policyDescription": "This policy governs the tracking of advertisements.",
+        "policyPoints": [
+          "We may collect data on ad views and interactions.",
+          "Ad tracking is used to provide more relevant advertisements."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "4",
+    "deviceName": "Fitness Tracker Pro",
+    "deviceType": "Wearable",
+    "deviceManufacturer": "LMN Wearables",
+    "manufacturerUrl": "https://lmnwearables.com",
+    "deviceHash": "cdef123456789",
+    "privacyPolicies": [
+      {
+        "policyName": "Health Data Collection",
+        "policyDescription": "This policy outlines the collection of health-related data.",
+        "policyPoints": [
+          "We may collect data such as heart rate and step count.",
+          "Health data is used for providing personalized insights and recommendations."
+        ]
+      },
+      {
+        "policyName": "Data Security",
+        "policyDescription": "This policy describes how we ensure the security of user data.",
+        "policyPoints": [
+          "User health data is stored securely and accessed only for authorized purposes.",
+          "We implement encryption and access controls to protect health information."
+        ]
+      }
+    ]
+  },
+  {
+    "deviceId": "5",
+    "deviceName": "Home Security System",
+    "deviceType": "Security",
+    "deviceManufacturer": "Security Solutions Inc.",
+    "manufacturerUrl": "https://securitysolutions.com",
+    "deviceHash": "89012345ghij",
+    "privacyPolicies": [
+      {
+        "policyName": "Video Surveillance",
+        "policyDescription": "This policy governs the use of video surveillance features.",
+        "policyPoints": [
+          "Video footage may be recorded for security purposes.",
+          "Access to video data is restricted to authorized users."
+        ]
+      },
+      {
+        "policyName": "Data Retention",
+        "policyDescription": "This policy outlines the retention period for collected data.",
+        "policyPoints": [
+          "Collected data is retained for a specified period, after which it is securely deleted.",
+          "Retention periods are defined based on legal and security requirements."
+        ]
+      }
+    ]
+  }
+]
