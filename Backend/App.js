@@ -2,12 +2,12 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-
+app.use(express.json())
 app.use(cors());
 
 
 const Administrator=require('./Administrator/Administrator')
-app.use(Administrator)
+app.use('/administrator',Administrator)
 
 
 

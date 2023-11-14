@@ -1,6 +1,7 @@
 // DeviceForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
+
 import {
     FormContainer,
     FormLabel,
@@ -18,6 +19,7 @@ import {
     PolicyHeader,
     PolicyDescription,
 } from './styles'; // Import the styled components
+import { fetchAPI } from './Tools/FetchAPI';
 
 const DeviceForm = () => {
     // State to manage device information
@@ -99,29 +101,16 @@ const DeviceForm = () => {
     // Handler for form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(deviceInfo)
+        {
+            
+            let response=await fetchAPI('http://localhost:8000/administrator/savedeviceinfo',"POST",deviceInfo)
+            console.log(response)
 
-        try {
-            // Send the form data to the backend endpoint using fetch
-            const response = await fetch('/api/devices', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(deviceInfo),
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            // Parse the JSON response from the backend
-            const responseData = await response.json();
-
-            // Handle the response from the backend as needed
-            console.log('Backend response:', responseData);
-        } catch (error) {
-            // Handle any errors that occurred during the request
-            console.error('Error sending data to the backend:', error);
+        }
+        else
+        {
+            console.log("NOOO")
         }
     };
 
