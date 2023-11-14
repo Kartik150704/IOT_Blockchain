@@ -105,6 +105,7 @@ export const PolicyPointButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin-right: 5px;
+  margin-left: 5px;
 
   &:hover {
     background-color: #45a049;
