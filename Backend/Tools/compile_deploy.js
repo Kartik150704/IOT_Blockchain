@@ -73,3 +73,5 @@ function compile(sourceCode, contractName) {
   };
 }
 
+
+module.exports={compile_deploy}
