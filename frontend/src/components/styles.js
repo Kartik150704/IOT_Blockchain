@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.form`
   max-width: 600px;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 20px;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -42,7 +42,7 @@ export const FormButton = styled.button`
 
 export const PolicyContainer = styled.div`
   margin-top: 15px;
-  border: 1px solid #ddd;
+  border: 3px solid #ddd;
   border-radius: 8px;
   padding: 15px;
 `;
@@ -54,7 +54,8 @@ export const AddPolicyPointButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
+  width: 100px;
+  height: 40px;
 
   &:hover {
     background-color: #45a049;
@@ -69,6 +70,7 @@ export const SubmitButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin-top: 15px;
+  margin-left: 15px;
 
   &:hover {
     background-color: #45a049;
@@ -97,6 +99,9 @@ export const PolicyPointInput = styled.input`
   display: inline-block;
 `;
 
+export const OuterPolicyPointButton = styled.div`
+  margin-left : 80px;
+`;
 export const PolicyPointButton = styled.button`
   background-color: #4caf50;
   color: white;
@@ -104,8 +109,6 @@ export const PolicyPointButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 5px;
-  margin-left: 5px;
 
   &:hover {
     background-color: #45a049;
@@ -115,6 +118,12 @@ export const PolicyPointButton = styled.button`
 export const PolicyNumber = styled.span`
   font-weight: bold;
   margin-right: 10px;
+`;
+
+export const OuterPolicyContent = styled.div`
+  display: flex;
+  justfiy-content: center;
+  align-items: center;
 `;
 
 export const PolicyContent = styled.div`
@@ -132,3 +141,41 @@ export const PolicyDescription = styled.p`
   margin-bottom: 0;
   color: #555;
 `;
+
+
+export const CustomModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+`;
+
+export const ModalButton = styled.button`
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
