@@ -5,7 +5,7 @@ const router = express();
 require('dotenv').config();
 
 const compile_deploy = require('../Tools/compile_deploy');
-const getContractInstance = require('../Tools/getInstance')
+const getContractInstance = require('../Tools/getInstance');
 
 const { giveJSON, giveString } = require('../Tools/StringEncoder')
 
@@ -38,7 +38,10 @@ router.post('/savedevice', async (req, resp) => {
             from: "0xB98B044A44F7Ffd5408266B7164638D1E7BfA12A",
             gas: 20000000
         })
-    resp.send(response)
+    resp.send({
+        ok:true,
+        details:response
+    })
 
 })
 

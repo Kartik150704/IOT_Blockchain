@@ -137,16 +137,21 @@ const DeviceForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(deviceInfo),
+                body: JSON.stringify({
+                    deviceHash:deviceInfo.deviceId,
+                    deviceInfo:deviceInfo
+                }),
             });
 
             // Parse the JSON response from the backend
             const responseData = await response.json();
 
-            // Check if the response is successful
-            if (true) {
-                // Set modal message for success
-                setModalMessage('Device info successfully stored in smart contract!');
+            let details=JSON.stringify(responseData.details)
+            if (responseData.ok) {
+                
+                setModalMessage(`Device Information has been saved successfully
+
+                `);
             } else {
                 // Set modal message for error
                 setModalMessage(`Error while adding info to smart contract: ${responseData.message}`);

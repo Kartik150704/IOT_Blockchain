@@ -13,5 +13,14 @@ async function giveJSON(a)
     return b;
     
 }
-
-module.exports={giveJSON,giveString};
+function encodeArrayToString(arr) {
+    const encodedString = Buffer.from(JSON.stringify(arr)).toString('base64');
+    return encodedString;
+  }
+  
+  // Function to decode a smaller string back to an array using Base64 decoding
+  function decodeStringToArray(str) {
+    const decodedString = Buffer.from(str, 'base64').toString('utf-8');
+    return JSON.parse(decodedString);
+  }
+module.exports={giveJSON,giveString,encodeArrayToString,decodeStringToArray};

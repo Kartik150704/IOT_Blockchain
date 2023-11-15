@@ -1,0 +1,85 @@
+{
+  "address": "0x0D1cf483cE7258d9d395cE8dD617c9399FE8fFb5",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "user",
+          "type": "string"
+        }
+      ],
+      "name": "getDeviceByUser",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0x2bd3a55d"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "device",
+          "type": "string"
+        }
+      ],
+      "name": "getUserByDevice",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0xa582551b"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "device",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "user",
+          "type": "string"
+        }
+      ],
+      "name": "insertDeviceToUser",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x5f87824b"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "user",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "device",
+          "type": "string"
+        }
+      ],
+      "name": "insertUserToDevice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xe90e08dc"
+    }
+  ]
+}

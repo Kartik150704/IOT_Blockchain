@@ -4,8 +4,8 @@ import DeviceList from './components/device_administrator/DeviceList'
 const App = () => {
   return (
     <div>
-      {/* <DeviceForm /> */}
-      <DeviceList />
+      <DeviceForm />
+      {/* <DeviceList /> */}
     </div>
   )
 }
