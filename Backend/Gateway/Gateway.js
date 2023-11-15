@@ -139,7 +139,7 @@ router.post('/userdata', async (req, resp) => {
 })
 
 router.get('/generatekeys', async (req, resp) => {
-    const data = await generateKeys();
+    const data = await generateKeys()
     resp.send(data)
 })
 

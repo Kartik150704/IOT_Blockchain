@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { fetchAPI } from '../Tools/FetchAPI';
 const DashboardContainer = styled.div`
   max-width: 600px;
   margin: 50px auto;
@@ -59,15 +59,36 @@ const StyledLink = styled(Link)`
 const UserDashboard = () => {
   const [publicKey, setPublicKey] = useState('');
   const [privateKey, setPrivateKey] = useState('');
+  const handleDownload = (inputdata, type) => {
+    const blob = new Blob([inputdata], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
 
-  const generateKeys = () => {
-    // Implement key generation logic (you may use a library like 'crypto' or 'ethereumjs-wallet')
-    // Set the generated keys using setPublicKey and setPrivateKey
-    // For demonstration purposes, let's assume the keys are generated successfully
-    setPublicKey('fdgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg');
-    setPrivateKey('GeneratedPrivateKey');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${type}.txt`; // Set the desired file name
+    a.style.display = 'none';
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
+  const generateKeys = async () => {
+    let response = await fetchAPI('http://localhost:8000/gateway/generatekeys', "GET", "");
+    await handleDownload(response.publicKey,"PublicKey")
+    await handleDownload(response.privateKey,"PrivateKey")
+    setPrivateKey(response.privateKey);
+    setPublicKey(response.publicKey);
+
+
+  };
+  const downloadKeysManually=()=>
+  {
+      handleDownload(publicKey,"PublicKey")
+      handleDownload(privateKey,"PrivateKey")
+  }
   return (
     <Router>
       <DashboardContainer>
@@ -75,9 +96,8 @@ const UserDashboard = () => {
 
         <Button onClick={generateKeys}>Generate Keys</Button>
         <KeysContainer>
-          <KeyLabel>Public Key:</KeyLabel>
-          <p>{publicKey}</p>
-          <KeyLabel>Private Key: {privateKey}</KeyLabel>
+          <h2>If keys are not downloaded automatically , click here to download</h2>
+          <Button onClick={downloadKeysManually}>Download</Button>
         </KeysContainer>
 
         <NavigationButtons>
