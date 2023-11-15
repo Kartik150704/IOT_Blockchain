@@ -9,6 +9,9 @@ app.use(cors());
 const Administrator=require('./Administrator/Administrator')
 app.use('/administrator',Administrator)
 
+const Gateway=require('./Gateway/Gateway')
+
+app.use('/gateway',Gateway);
 
 
 

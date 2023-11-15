@@ -1,153 +1,65 @@
 {
-  "address": "0x3926A6d89BE404f858f02511dC343baca0410fC1",
+  "address": "0xc3ABd4f17678ddAd168aBCc99bD0c2D1f2f2c6B0",
   "abi": [
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "value",
+          "type": "string"
+        }
+      ],
+      "name": "ValueStored",
+      "type": "event",
+      "signature": "0xa3b94967c938a4e9ab6f856e2803012f67a4781f4ac0b0b79c7384875efd854c"
+    },
+    {
       "inputs": [
         {
           "internalType": "string",
-          "name": "_deviceId",
+          "name": "key",
           "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_deviceName",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_deviceType",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_deviceManufacturer",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_manufacturerURL",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_privacyPolicyIds",
-          "type": "uint256[]"
         }
       ],
-      "name": "addDevice",
+      "name": "retrieveValue",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0x046b7449"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "value",
+          "type": "string"
+        }
+      ],
+      "name": "storeValue",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function",
-      "signature": "0x4909ecd0"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string[]",
-          "name": "_collectedData",
-          "type": "string[]"
-        }
-      ],
-      "name": "addPrivacyPolicy",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x91058c0c"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "name": "devices",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "deviceId",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "deviceName",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "deviceType",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "deviceManufacturer",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "manufacturerURL",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true,
-      "signature": "0x22233396"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_deviceId",
-          "type": "string"
-        }
-      ],
-      "name": "getDevicePrivacyPolicies",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "uint256",
-              "name": "policyId",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string[]",
-              "name": "collectedData",
-              "type": "string[]"
-            }
-          ],
-          "internalType": "struct Administrator.PrivacyPolicy[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true,
-      "signature": "0x9568b57f"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "privacyPolicies",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "policyId",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true,
-      "signature": "0x7afc3dd4"
+      "signature": "0xe4852c1b"
     }
   ]
 }
