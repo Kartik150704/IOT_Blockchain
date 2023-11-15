@@ -1,5 +1,5 @@
 {
-  "address": "0x0D1cf483cE7258d9d395cE8dD617c9399FE8fFb5",
+  "address": "0x84df4097914eaE3229c39249852404cDf50BAF6B",
   "abi": [
     {
       "inputs": [
@@ -47,6 +47,27 @@
       "inputs": [
         {
           "internalType": "string",
+          "name": "user",
+          "type": "string"
+        }
+      ],
+      "name": "getUserPrivacyPolicy",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0x0a1882e0"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
           "name": "device",
           "type": "string"
         },
@@ -80,6 +101,25 @@
       "stateMutability": "nonpayable",
       "type": "function",
       "signature": "0xe90e08dc"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "user",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "policy",
+          "type": "string"
+        }
+      ],
+      "name": "storeUserPrivacyPolicy",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x16734577"
     }
   ]
 }

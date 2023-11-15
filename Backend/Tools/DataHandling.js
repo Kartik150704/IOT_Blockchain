@@ -1,12 +1,15 @@
 const sss = require('shamirs-secret-sharing')
 
-
+const {giveJSON,giveString}=require('../Tools/StringEncoder')
 // console.log(shares)
 
 
-function divideData(secret)
+async function divideData(secret)
 {
-    secret=Buffer.from(secret)
+
+    secret=await giveString(secret)
+    console.log(secret)
+    secret=Buffer.from(secret,'base64')
     const shares = sss.split(secret, { shares: 2, threshold: 2 })
     return shares
 }
@@ -14,7 +17,7 @@ function divideData(secret)
 function combineData(shares)
 {
     const recovered = sss.combine(shares)
-    return recovered.toString()
+    return recovered
 }
 
 module.exports={divideData,combineData}

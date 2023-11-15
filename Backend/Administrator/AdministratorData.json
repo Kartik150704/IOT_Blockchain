@@ -1,6 +1,40 @@
 {
-  "address": "0xc3ABd4f17678ddAd168aBCc99bD0c2D1f2f2c6B0",
+  "address": "0xf95cc1df45B94B27a0F198b51668bDabfCe3510A",
   "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "device",
+          "type": "string"
+        }
+      ],
+      "name": "DeviceAdded",
+      "type": "event",
+      "signature": "0x9ca446a6a631333e120d224aa440af5bc8579adae541ea71c1fa30c0de1c28d7"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "user",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "policy",
+          "type": "string"
+        }
+      ],
+      "name": "PolicyAdded",
+      "type": "event",
+      "signature": "0x22825794fdd7f81406081b1a304aabca4492f23624cd86bbd182e45eed4f5330"
+    },
     {
       "anonymous": false,
       "inputs": [
@@ -25,6 +59,56 @@
       "inputs": [
         {
           "internalType": "string",
+          "name": "device",
+          "type": "string"
+        }
+      ],
+      "name": "addDevice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xc7eeb96d"
+    },
+    {
+      "inputs": [],
+      "name": "getDevices",
+      "outputs": [
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0xd611d6c8"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "user",
+          "type": "string"
+        }
+      ],
+      "name": "getUserPrivacyPolicy",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true,
+      "signature": "0x0a1882e0"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
           "name": "key",
           "type": "string"
         }
@@ -41,6 +125,25 @@
       "type": "function",
       "constant": true,
       "signature": "0x046b7449"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "user",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "policy",
+          "type": "string"
+        }
+      ],
+      "name": "storeUserPrivacyPolicy",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x16734577"
     },
     {
       "inputs": [

@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 contract Gateway {
     mapping(string => string) private userToDevice;
     mapping(string => string) private deviceToUser;
+    mapping(string => string) private userPrivacyPolicy;
 
     // Function to insert user-to-device mapping
     function insertUserToDevice(string memory user, string memory device) external {
@@ -27,5 +28,17 @@ contract Gateway {
     function getUserByDevice(string memory device) external view returns (string memory) {
         require(bytes(device).length > 0, "Device must not be empty");
         return deviceToUser[device];
+    }
+
+    // Function to store user privacy policy
+    function storeUserPrivacyPolicy(string memory user, string memory policy) external {
+        require(bytes(user).length > 0 && bytes(policy).length > 0, "User and policy must not be empty");
+        userPrivacyPolicy[user] = policy;
+    }
+
+    // Function to retrieve user privacy policy
+    function getUserPrivacyPolicy(string memory user) external view returns (string memory) {
+        require(bytes(user).length > 0, "User must not be empty");
+        return userPrivacyPolicy[user];
     }
 }
