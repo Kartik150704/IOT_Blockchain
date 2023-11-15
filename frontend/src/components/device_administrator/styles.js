@@ -178,4 +178,3 @@ export const Overlay = styled.div`
   align-items: center;
   justify-content: center;
 `;
-

@@ -1,6 +1,7 @@
 // DeviceForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import {
     FormContainer,
     FormLabel,
@@ -23,6 +24,27 @@ import {
     ModalButton,
     Overlay
 } from './styles'; // Import the styled components
+
+import Modal from 'react-modal';
+
+const Navbar = styled.nav`
+  background-color: #333;
+  padding: 15px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+`;
+
+const NavbarLogo = styled.h1`
+  margin: 0;
+`;
+
+const NavbarLinks = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 
 const DeviceForm = () => {
     // State to manage device information
@@ -110,7 +132,7 @@ const DeviceForm = () => {
 
         try {
             // Send the form data to the backend endpoint using fetch
-            const response = await fetch('/api/devices', {
+            const response = await fetch('http://localhost:8000/administrator/savedevice', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,18 +140,29 @@ const DeviceForm = () => {
                 body: JSON.stringify(deviceInfo),
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
             // Parse the JSON response from the backend
             const responseData = await response.json();
 
-            // Handle the response from the backend as needed
-            console.log('Backend response:', responseData);
+            // Check if the response is successful
+            if (true) {
+                // Set modal message for success
+                setModalMessage('Device info successfully stored in smart contract!');
+            } else {
+                // Set modal message for error
+                setModalMessage(`Error while adding info to smart contract: ${responseData.message}`);
+            }
+
+            // Open the modal
+            setModalIsOpen(true);
+
         } catch (error) {
             // Handle any errors that occurred during the request
             console.error('Error sending data to the backend:', error);
+            // Set modal message for a generic error
+            setModalMessage('Error while processing the request. Please try again.');
+
+            // Open the modal
+            setModalIsOpen(true);
         }
     };
 
