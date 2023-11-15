@@ -1,5 +1,5 @@
 // CustomModalContent.js
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ModalOverlay = styled.div`
@@ -87,10 +87,48 @@ const PolicyListItem = styled.li`
   margin-bottom: 10px;
 `;
 
-const CustomModalContent = ({ selectedDevice, closeModal, handleSave }) => {
+const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPolicies }) => {
+  const [updatedPolicies, setUpdatedPolicies] = useState(privacyPolicies);
+
   if (!selectedDevice) {
     return null;
   }
+
+  const handleAcceptPolicy = (policyName) => {
+
+    // console.log(policyName)
+    const updatedPolicy = {
+      policyName: policyName,
+      status: 'accepted',
+    };
+
+    setUpdatedPolicies((prevPolicies) =>
+      prevPolicies.map((policy) =>
+        policy.policyName === policyName ? updatedPolicy : policy
+      )
+    );
+
+    console.log(updatedPolicies)
+  };
+
+  const handleDeclinePolicy = (policyName) => {
+    const updatedPolicy = {
+      policyName: policyName,
+      status: 'declined',
+    };
+
+    setUpdatedPolicies((prevPolicies) =>
+      prevPolicies.map((policy) =>
+        policy.policyName === policyName ? updatedPolicy : policy
+      )
+    );
+  };
+
+  const handleSaveChanges = () => {
+    console.log(updatedPolicies)
+    handleSave(selectedDevice, updatedPolicies);
+    // closeModal();
+  };
 
   return (
     <ModalOverlay>
@@ -106,12 +144,12 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave }) => {
             <PolicyListItem key={index}>
               <strong>{policy.policyName}</strong>
               <p>{policy.policyDescription}</p>
-              <AcceptButton>Accept</AcceptButton>
-              <DeclineButton>Decline</DeclineButton>
+              <AcceptButton onClick={() => handleAcceptPolicy(policy.policyName)}>Accept</AcceptButton>
+              <DeclineButton onClick={() => handleDeclinePolicy(policy.policyName)}>Decline</DeclineButton>
             </PolicyListItem>
           ))}
         </PolicyList>
-        <SaveButton onClick={() => handleSave(selectedDevice)}>Save</SaveButton>
+        <SaveButton onClick={handleSaveChanges}>Save</SaveButton>
         <CloseButton onClick={closeModal}>Close</CloseButton>
       </ModalContent>
     </ModalOverlay>

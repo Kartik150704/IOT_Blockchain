@@ -1,10 +1,39 @@
-// UserDashboard.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchAPI } from '../Tools/FetchAPI';
-const DashboardContainer = styled.div`
-  max-width: 600px;
+
+const Container = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+const Navigation = styled.nav`
+  background-color: #007bff;
+  padding: 15px;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+`;
+
+const NavLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+
+const LoginPageContainer = styled.div`
+  max-width: 400px;
   margin: 50px auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -12,105 +41,75 @@ const DashboardContainer = styled.div`
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 `;
 
-const Heading = styled.h2`
-  text-align: center;
-  color: #333;
-`;
-
-const Button = styled.button`
-  background-color: #4caf50;
+const UploadButton = styled.label`
+  background-color: #3498db;
   color: white;
   padding: 10px 15px;
   font-size: 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 15px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 20px;
+  text-align: center;
 
   &:hover {
-    background-color: #45a049;
+    background-color: #2980b9;
+  }
+
+  input {
+    display: none;
   }
 `;
 
-const KeysContainer = styled.div`
-  margin-top: 20px;
-  text-align: center;
-  word-break: break-all; /* Wrap the content to the next line when it overflows */
-`;
-
-const KeyLabel = styled.strong`
+const LoginButton = styled.button`
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   display: block;
-  margin-top: 10px;
-`;
+  width: 100%;
 
-const NavigationButtons = styled.div`
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
+  &:hover {
+    background-color: #27ae60;
+  }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const UserDashboard = () => {
-  const [publicKey, setPublicKey] = useState('');
-  const [privateKey, setPrivateKey] = useState('');
-  const handleDownload = (inputdata, type) => {
-    const blob = new Blob([inputdata], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
+const App = () => {
+    return (
+        <>
+            {/* <Container>
+        <Navigation>
+          <NavLink to="/owned-devices">Owned Devices</NavLink>
+          <NavLink to="/purchase-devices">Purchase Devices</NavLink>
+        </Navigation>
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${type}.txt`; // Set the desired file name
-    a.style.display = 'none';
-    document.body.appendChild(a);
+        <hr /> */}
 
-    a.click();
+            {/* <Route path="/owned-devices" component={OwnedDevices} />
+        <Route path="/purchase-devices" component={PurchaseDevices} /> */}
+            {/* </Container> */}
 
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
+            <LoginPageContainer>
+                <StyledLink to={"\OwnedDevices"}>
+                    <UploadButton>
+                        Owned Devices
+                    </UploadButton>
+                </StyledLink>
 
-  const generateKeys = async () => {
-    let response = await fetchAPI('http://localhost:8000/gateway/generatekeys', "GET", "");
-    await handleDownload(response.publicKey,"PublicKey")
-    await handleDownload(response.privateKey,"PrivateKey")
-    setPrivateKey(response.privateKey);
-    setPublicKey(response.publicKey);
-
-
-  };
-  const downloadKeysManually=()=>
-  {
-      handleDownload(publicKey,"PublicKey")
-      handleDownload(privateKey,"PrivateKey")
-  }
-  return (
-    <Router>
-      <DashboardContainer>
-        <Heading>User Dashboard</Heading>
-
-        <Button onClick={generateKeys}>Generate Keys</Button>
-        <KeysContainer>
-          <h2>If keys are not downloaded automatically , click here to download</h2>
-          <Button onClick={downloadKeysManually}>Download</Button>
-        </KeysContainer>
-
-        <NavigationButtons>
-          <StyledLink to={"/owned-devices"}>
-            <Button>Owned Devices</Button>
-          </StyledLink>
-          <StyledLink to={"/purchase-devices"}>
-            <Button>Purchase Devices</Button>
-          </StyledLink>
-        </NavigationButtons>
-      </DashboardContainer>
-    </Router>
-  );
+                <StyledLink to={"\PurchaseDevice"}>
+                    <LoginButton>Purchase Devices</LoginButton>
+                </StyledLink>
+            </LoginPageContainer>
+        </>
+    );
 };
 
-export default UserDashboard;
+export default App;

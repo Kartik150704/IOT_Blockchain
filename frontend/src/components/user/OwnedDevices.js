@@ -1,3 +1,4 @@
+// OwnedDevices.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import devicesData from './deviceInfo.json';
@@ -44,7 +45,6 @@ const UpdatePolicyButton = styled.button`
   }
 `;
 
-
 const Navbar = styled.nav`
   background-color: #333;
   padding: 15px;
@@ -59,57 +59,56 @@ const NavbarLogo = styled.h1`
   margin: 0;
 `;
 
-const NavbarLinks = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-
 const OwnedDevices = () => {
-    const [selectedDevice, setSelectedDevice] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleDeviceClick = (device) => {
+    // Only set the selected device without opening the modal
+    setSelectedDevice(device);
+  };
 
-    const handleDeviceClick = (device) => {
-        // Only set the selected device without opening the modal
-        setSelectedDevice(device);
-    };
+  // Separate function to handle "Update Policies" button click
+  const handleUpdatePoliciesClick = () => {
+    setIsModalOpen(true);
+  };
 
-    // Separate function to handle "Update Policies" button click
-    const handleUpdatePoliciesClick = () => {
-        setIsModalOpen(true);
-    };
+  const handleSave = (device, updatedPolicies) => {
+    // Retrieve existing policies from localStorage
+    // console.log(updatedPolicies)
+    const existingPoliciesString = localStorage.getItem('updatedPolicies');
+    const existingPolicies = existingPoliciesString ? JSON.parse(existingPoliciesString) : {};
+  
+    // Assume device.deviceId is unique
+    existingPolicies[device.deviceId] = updatedPolicies;
+  
+    // Save updated policies back to localStorage
+    localStorage.setItem('updatedPolicies', JSON.stringify(existingPolicies));
+  };
+  
 
-    const closeModal = () => {
-        setSelectedDevice(null);
-        setIsModalOpen(false);
-    };
+  const closeModal = () => {
+    setSelectedDevice(null);
+    setIsModalOpen(false);
+  };
 
+  return (
+    <div>
+      <Navbar>
+        <NavbarLogo>Owned Devices</NavbarLogo>
+      </Navbar>
+      <DeviceListContainer>
+        {devicesData.map((device) => (
+          <DeviceCard key={device.deviceId} onClick={() => handleDeviceClick(device)}>
+            <h3>{device.deviceName}</h3>
+            <p>Hash: {device.deviceHash}</p>
+            <UpdatePolicyButton onClick={handleUpdatePoliciesClick}>Update Policy</UpdatePolicyButton>
+          </DeviceCard>
+        ))}
+      </DeviceListContainer>
 
-
-    return (
-        <div>
-            <Navbar>
-                <NavbarLogo>Owned Devices</NavbarLogo>
-                {/* <NavbarLinks> */}
-                {/* <NavbarLink to="/">Home</NavbarLink> */}
-                {/* <NavbarLink to="/about">About</NavbarLink> */}
-                {/* Home */}
-                {/* Add more links as needed */}
-                {/* </NavbarLinks> */}
-            </Navbar>
-            <DeviceListContainer>
-                {devicesData.map((device) => (
-                    <DeviceCard key={device.deviceId} onClick={() => handleDeviceClick(device)}>
-                        <h3>{device.deviceName}</h3>
-                        <p>Hash: {device.deviceHash}</p>
-                        <UpdatePolicyButton onClick={handleUpdatePoliciesClick}>Update Policy</UpdatePolicyButton>
-                    </DeviceCard>
-                ))}
-            </DeviceListContainer>
-
-            {isModalOpen && <CustomModalContent selectedDevice={selectedDevice} closeModal={closeModal} />}
-        </div>
-    );
+      {isModalOpen && <CustomModalContent selectedDevice={selectedDevice} closeModal={closeModal} handleSave={handleSave} privacyPolicies={selectedDevice.privacyPolicies} />}
+    </div>
+  );
 };
 
 export default OwnedDevices;
