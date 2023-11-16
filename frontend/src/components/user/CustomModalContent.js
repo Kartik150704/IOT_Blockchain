@@ -116,7 +116,7 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
             data = [...data, {"policyName" : policy.policyName, value : ""}]
         })
         setInputDataByPolicy(data)
-        // console.log(data)
+        
     }, [])
 
 
@@ -219,8 +219,8 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
         console.log("USER DATA : ", updatedUserData)
 
         // handleSave(selectedDevice, );
-        // let response = await fetchAPI('http://localhost:8000/gateway/saveuserdata', "POST", userData)
-        // console.log(response)
+        let response = await fetchAPI('http://localhost:8000/gateway/saveuserdata', "POST", updatedUserData)
+        console.log(response)
     };
 
     return (

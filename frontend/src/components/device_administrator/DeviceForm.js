@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import DropdownComponent from '../Tools/DropDown';
 import {
     FormContainer,
     FormLabel,
@@ -182,6 +183,7 @@ const DeviceForm = () => {
         <>
             <Navbar>
                 <NavbarLogo>Device List</NavbarLogo>
+            <DropdownComponent/>
                 {/* <NavbarLinks> */}
                 {/* <NavbarLink to="/">Home</NavbarLink> */}
                 {/* <NavbarLink to="/about">About</NavbarLink> */}

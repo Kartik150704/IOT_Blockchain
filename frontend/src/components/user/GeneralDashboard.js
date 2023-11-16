@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchAPI } from '../Tools/FetchAPI';
+import DropdownComponent from '../Tools/DropDown';
 const DashboardContainer = styled.div`
   max-width: 600px;
   margin: 50px auto;
@@ -91,6 +92,7 @@ const GeneralDashboard = () => {
   }
   return (
     <>
+      <DropdownComponent/>
       <DashboardContainer>
         <Heading>User Dashboard</Heading>
 

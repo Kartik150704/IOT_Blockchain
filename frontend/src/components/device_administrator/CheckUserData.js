@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fetchAPI } from '../Tools/FetchAPI';
-
+import DropdownComponent from '../Tools/DropDown';
 const FormContainer = styled.form`
     max-width: 400px;
     margin: 0 auto;
@@ -62,34 +62,35 @@ const PolicyForm = () => {
         userId: '',
         policiesId: [''],
     });
+    const [userData, setUserData] = useState([])
 
-    const handleUserIdChange =async  (event) => {
+    const handleUserIdChange = async (event) => {
         const file = event.target.files[0];
         setUserIdFile(file);
-        let data=await readFileAsText(file)
-        
+        let data = await readFileAsText(file)
+
         // setFormData({...formData,userId:data})
     };
 
-    
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        
+
         if (file) {
-          readPublicKey(file);
+            readPublicKey(file);
         }
-      };
-      
-      const readPublicKey = (file) => {
+    };
+
+    const readPublicKey = (file) => {
         const reader = new FileReader();
-        
+
         reader.onload = (e) => {
-          const uploadedKey = e.target.result;
-          setFormData({...formData,userId:uploadedKey})
+            const uploadedKey = e.target.result;
+            setFormData({ ...formData, userId: uploadedKey })
         };
-    
+
         reader.readAsText(file);
-      };
+    };
 
 
 
@@ -133,14 +134,17 @@ const PolicyForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         
-        console.log(formData);
         let response = await fetchAPI('http://localhost:8000/gateway/checkuserdata', "POST", formData)
-        console.log(response)
+        
+        setUserData(response.data)
 
     };
 
     return (
+        <>
+        <DropdownComponent/>
         <FormContainer onSubmit={handleSubmit}>
             <FormGroup>
                 <label htmlFor="userId">User ID:</label>
@@ -161,8 +165,25 @@ const PolicyForm = () => {
                     Add Policy
                 </button>
             </FormGroup>
+
             <SubmitButton type="submit">Submit</SubmitButton>
+
+            <div>
+                {userData && userData.length > 0 ? (
+                    <ul>
+                        {userData.map((user, index) => (
+                            <li key={index}>
+                                {user && user.VALUE && <span>{user.VALUE}</span>}
+                                {!user && <span>User don't want to show his data</span>}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No user data available</p>
+                )}
+            </div>
         </FormContainer>
+        </>
     );
 };
 

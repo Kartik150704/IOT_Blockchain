@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import devicesData from './deviceInfo.json';
 // import { Link } from 'react-router-dom'; // Assuming you are using React Router
-
+import DropdownComponent from '../Tools/DropDown';
 
 const DeviceListContainer = styled.div`
   display: grid;

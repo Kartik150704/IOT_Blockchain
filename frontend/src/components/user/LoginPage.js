@@ -3,6 +3,7 @@ import React, { useState  } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom'
+import DropdownComponent from '../Tools/DropDown';
 const LoginPageContainer = styled.div`
   max-width: 400px;
   margin: 50px auto;
@@ -87,6 +88,8 @@ const LoginPage = () => {
   };
 
   return (
+    <>
+    <DropdownComponent/>
     <LoginPageContainer>
       <UploadButton>
         Upload Public Key
@@ -96,6 +99,7 @@ const LoginPage = () => {
       <LoginButton onClick={handleLogin}>Login</LoginButton>
       {/* </StyledLink> */}
     </LoginPageContainer>
+    </>
   );
 };
 

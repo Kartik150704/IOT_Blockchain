@@ -8,6 +8,7 @@ import LoginPage from './components/user/LoginPage'
 import GeneralDashboard from './components/user/GeneralDashboard'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CheckUserData from './components/device_administrator/CheckUserData'
+import DropdownComponent from './components/Tools/DropDown'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Router>
 
         <Routes>
+          
           <Route path='/' element={<GeneralDashboard />} />
           <Route path='/Login' element={<LoginPage />} />
           <Route path='/UserDashboard/OwnedDevices' element={<OwnedDevices />} />
@@ -22,7 +24,7 @@ const App = () => {
           <Route path='/UserDashboard' element={<UserDashboard />} />
           <Route path='/admin/adddevice' element={<DeviceForm/>}/>
           <Route path='/admin/checkuserdata' element={<CheckUserData/>}/>
-          <Route path='/generalDashboard' element={<GeneralDashboard/>}/>
+          
         {/* <DeviceForm /> */}
         {/* <DeviceList /> */}
         {/* <UserDashboard /> */}
