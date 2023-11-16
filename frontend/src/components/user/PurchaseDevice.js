@@ -1,7 +1,8 @@
 // DeviceList.js
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import styled from 'styled-components';
-import devicesData from './deviceInfo.json';
+import { fetchAPI } from '../Tools/FetchAPI';
+
 // import { Link } from 'react-router-dom'; // Assuming you are using React Router
 
 
@@ -101,71 +102,104 @@ const NavbarLinks = styled.div`
 // `;
 
 const PurchaseDevice = () => {
-    const [selectedDevice, setSelectedDevice] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [devicesData, setDevicesData] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let options = {
+          user: localStorage.getItem('publickey')
+        };
 
-    const handleDeviceClick = (device) => {
-        setSelectedDevice(device);
-        setIsModalOpen(true);
+        let x = await fetchAPI('http://localhost:8000/administrator/getalldevicesinfo', 'GET', options);
+        console.log(x)
+        setDevicesData(x);
+      } catch (error) {
+        // Handle any errors if the fetchAPI or setting state fails
+        console.error('Error fetching data:', error);
+      }
     };
 
-    const closeModal = () => {
-        setSelectedDevice(null);
-        setIsModalOpen(false);
-    };
+    fetchData(); // Call the async function immediately
 
-    return (
-        <div>
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const handleDeviceClick = (device) => {
+    setSelectedDevice(device);
+    setIsModalOpen(true);
+  };
 
-            <Navbar>
-                <NavbarLogo>Purchase Devices</NavbarLogo>
-                {/* <NavbarLinks> */}
-                    {/* <NavbarLink to="/">Home</NavbarLink> */}
-                    {/* <NavbarLink to="/about">About</NavbarLink> */}
-                    {/* Home */}
-                    {/* Add more links as needed */}
-                {/* </NavbarLinks> */}
-            </Navbar>
-            <DeviceListContainer>
-                {devicesData.map((device) => (
-                    <DeviceCard key={device.deviceId} onClick={() => handleDeviceClick(device)}>
-                        <h3>{device.deviceName}</h3>
-                        <p>Hash: {device.deviceHash}</p>
-                    </DeviceCard>
+  const closeModal = () => {
+    setSelectedDevice(null);
+    setIsModalOpen(false);
+  };
+
+
+  const purchaseDevice=async ()=>
+  {
+      let options=
+      {
+          user:localStorage.getItem('publickey'),
+          device:selectedDevice.deviceId,
+
+      }
+
+      let response=await fetchAPI('http://localhost:8000/gateway/savedevice',"POST",options);
+      console.log(response);
+  }
+  return (
+    <div>
+
+      <Navbar>
+        <NavbarLogo>Purchase Devices</NavbarLogo>
+        {/* <NavbarLinks> */}
+        {/* <NavbarLink to="/">Home</NavbarLink> */}
+        {/* <NavbarLink to="/about">About</NavbarLink> */}
+        {/* Home */}
+        {/* Add more links as needed */}
+        {/* </NavbarLinks> */}
+      </Navbar>
+      <DeviceListContainer>
+        {devicesData.map((device) => (
+          <DeviceCard key={device.deviceId} onClick={() => handleDeviceClick(device)}>
+            <h3>{device.deviceName}</h3>
+            <p>Hash: {device.deviceHash}</p>
+          </DeviceCard>
+        ))}
+      </DeviceListContainer>
+
+      <CustomModalContainer isOpen={isModalOpen} onClick={closeModal}>
+        <CustomModalContent onClick={(e) => e.stopPropagation()}>
+          {selectedDevice && (
+            <>
+              <h2>{selectedDevice.deviceName}</h2>
+              <p><b>Device ID:</b> {selectedDevice.deviceId}</p>
+              <p><b>Device Type:</b> {selectedDevice.deviceType}</p>
+              <p><b>Device Manufacturer:</b> {selectedDevice.deviceManufacturer}</p>
+              <p><b>Manufacturer URL:</b> {selectedDevice.manufacturerUrl}</p>
+              <h3><b>Privacy Policies:</b></h3>
+              {/* <ul>
+                {selectedDevice.privacyPolicies.map((policy, index) => (
+                  <li key={index}>
+                    <strong>{policy.policyName}</strong>
+                    <p>{policy.policyDescription}</p>
+                    <ul>
+                      {policy.policyPoints.map((point, pointIndex) => (
+                        <li key={pointIndex}>{point}</li>
+                      ))}
+                    </ul>
+                  </li>
                 ))}
-            </DeviceListContainer>
-
-            <CustomModalContainer isOpen={isModalOpen} onClick={closeModal}>
-                <CustomModalContent onClick={(e) => e.stopPropagation()}>
-                    {selectedDevice && (
-                        <>
-                            <h2>{selectedDevice.deviceName}</h2>
-                            <p><b>Device ID:</b> {selectedDevice.deviceId}</p>
-                            <p><b>Device Type:</b> {selectedDevice.deviceType}</p>
-                            <p><b>Device Manufacturer:</b> {selectedDevice.deviceManufacturer}</p>
-                            <p><b>Manufacturer URL:</b> {selectedDevice.manufacturerUrl}</p>
-                            <h3><b>Privacy Policies:</b></h3>
-                            <ul>
-                                {selectedDevice.privacyPolicies.map((policy, index) => (
-                                    <li key={index}>
-                                        <strong>{policy.policyName}</strong>
-                                        <p>{policy.policyDescription}</p>
-                                        <ul>
-                                            {policy.policyPoints.map((point, pointIndex) => (
-                                                <li key={pointIndex}>{point}</li>
-                                            ))}
-                                        </ul>
-                                    </li>
-                                ))}
-                            </ul>
-                            <PurchaseButton>Purchase</PurchaseButton>
-                            <CloseButton onClick={closeModal}>Close</CloseButton>
-                        </>
-                    )}
-                </CustomModalContent>
-            </CustomModalContainer>
-        </div>
-    );
+              </ul> */}
+              <PurchaseButton onClick={purchaseDevice}>Purchase</PurchaseButton>
+              <CloseButton onClick={closeModal}>Close</CloseButton>
+            </>
+          )}
+        </CustomModalContent>
+      </CustomModalContainer>
+    </div>
+  );
 };
 
 export default PurchaseDevice;

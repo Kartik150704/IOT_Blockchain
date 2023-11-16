@@ -33,7 +33,7 @@ router.post('/savedevice', async (req, resp) => {
 
 
     const contract = new web3WithPrivateKey.eth.Contract(contractData.abi, contractData.address);
-    console.log(contract)
+
     let response = await contract.methods.storeValue(key, value)
         .send({
             from: "0xB98B044A44F7Ffd5408266B7164638D1E7BfA12A",
@@ -68,7 +68,7 @@ router.post('/getdeviceinfo', async (req, resp) => {
     resp.send(response)
 })
 
-router.post('/getalldevices', async (req, resp) => {
+router.get('/getalldevices', async (req, resp) => {
     const privateKey = process.env.SIGNER_PRIVATE_KEY;
 
 
@@ -83,6 +83,31 @@ router.post('/getalldevices', async (req, resp) => {
     resp.send(response)
 })
 
+router.get('/getalldevicesinfo', async (req, resp) => {
+
+    
+    const privateKey = process.env.SIGNER_PRIVATE_KEY;
+
+
+    const contractData = require('./AdministratorData.json')
+    const web3WithPrivateKey = new Web3(new Web3.providers.HttpProvider(web3Node));
+    const yourAccount = web3WithPrivateKey.eth.accounts.privateKeyToAccount(privateKey);
+    web3WithPrivateKey.eth.accounts.wallet.add(yourAccount);
+
+
+    const contract = new web3WithPrivateKey.eth.Contract(contractData.abi, contractData.address);
+    let devices = await contract.methods.getDevices().call()
+    let allData = []
+    for (let i = 0; i < devices.length; i++) {
+        let key = devices[i];
+        let response = await contract.methods.retrieveValue(key).call()
+        response = await giveJSON(response);
+        allData.push(response)
+    }
+    console.log(allData[1].privacyPolicies)
+    resp.send(allData)
+    
+})
 router.post('/getuserdata', async (req, resp) => {
     const contractData = require('./AdministratorData.json')
     const web3WithPrivateKey = new Web3(new Web3.providers.HttpProvider(web3Node));

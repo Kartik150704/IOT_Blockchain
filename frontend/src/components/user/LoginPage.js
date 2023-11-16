@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState  } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom'
 const LoginPageContainer = styled.div`
   max-width: 400px;
   margin: 50px auto;
@@ -53,20 +54,21 @@ const StyledLink = styled(Link)`
 `;
 
 const LoginPage = () => {
+  const navigate=useNavigate()
   const [publicKey, setPublicKey] = useState('');
-  // const navigate = useNavigate();
-
+  
+  
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-
+    
     if (file) {
       readPublicKey(file);
     }
   };
-
+  
   const readPublicKey = (file) => {
     const reader = new FileReader();
-
+    
     reader.onload = (e) => {
       const uploadedKey = e.target.result;
       setPublicKey(uploadedKey);
@@ -77,8 +79,8 @@ const LoginPage = () => {
 
   const handleLogin = () => {
     if (publicKey) {
-      // Redirect to the user dashboard after successful login
-      // navigate('/userDashboard');
+      localStorage.setItem('publickey',publicKey);
+      navigate('/UserDashboard');
     } else {
       alert('Please upload a public key.');
     }
@@ -90,9 +92,9 @@ const LoginPage = () => {
         Upload Public Key
         <input type="file" accept=".txt" onChange={handleFileChange} />
       </UploadButton>
-      <StyledLink to={"/UserDashboard"}>
+      {/* <StyledLink to={"/UserDashboard"}> */}
       <LoginButton onClick={handleLogin}>Login</LoginButton>
-      </StyledLink>
+      {/* </StyledLink> */}
     </LoginPageContainer>
   );
 };

@@ -1,9 +1,9 @@
 // OwnedDevices.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import devicesData from './deviceInfo.json';
+import devicedata from './deviceInfo.json'
 import CustomModalContent from './CustomModalContent';
-
+import { fetchAPI } from '../Tools/FetchAPI';
 const DeviceListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -62,6 +62,28 @@ const NavbarLogo = styled.h1`
 const OwnedDevices = () => {
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [publicKey, setPublicKey] = useState('')
+  const [devicesData, setDevicesData] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let options = {
+          user: localStorage.getItem('publickey')
+        };
+        
+        let x = await fetchAPI('http://localhost:8000/gateway/user/getdevices', 'POST', options);
+        console.log(x)
+        setDevicesData(x);
+      } catch (error) {
+        // Handle any errors if the fetchAPI or setting state fails
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); // Call the async function immediately
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const handleDeviceClick = (device) => {
     // Only set the selected device without opening the modal
     setSelectedDevice(device);
@@ -77,14 +99,14 @@ const OwnedDevices = () => {
     // console.log(updatedPolicies)
     const existingPoliciesString = localStorage.getItem('updatedPolicies');
     const existingPolicies = existingPoliciesString ? JSON.parse(existingPoliciesString) : {};
-  
+
     // Assume device.deviceId is unique
     existingPolicies[device.deviceId] = updatedPolicies;
-  
+
     // Save updated policies back to localStorage
     localStorage.setItem('updatedPolicies', JSON.stringify(existingPolicies));
   };
-  
+
 
   const closeModal = () => {
     setSelectedDevice(null);

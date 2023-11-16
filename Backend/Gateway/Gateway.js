@@ -16,7 +16,9 @@ router.get('/initialize', async (req, resp) => {
     fs.writeFileSync('./Gateway/GatewayData.json', JSON.stringify(data, null, 2));
     resp.send(`Contract deployed at ${deployAddress}`);
 })
-router.post('/gateway/savedevice', async (req, resp) => {
+router.post('/savedevice', async (req, resp) => {
+
+    console.log(req.body)
     let user1 = req.body.user
     let device1 = req.body.device
     let user = await giveString(user1)
@@ -89,8 +91,18 @@ router.post('/user/getdevices', async (req, resp) => {
 
         devices = decodeStringToArray(devices)
     }
+    const contractData1 = require('../Administrator/AdministratorData.json')
+    const web3WithPrivateKey1 = new Web3(new Web3.providers.HttpProvider(web3Node));
+    const yourAccount1 = web3WithPrivateKey1.eth.accounts.privateKeyToAccount(privateKey);
+    web3WithPrivateKey1.eth.accounts.wallet.add(yourAccount1);
 
-    console.log(devices);
+
+    const contract1 = new web3WithPrivateKey.eth.Contract(contractData1.abi, contractData1.address);
+    for (let i = 0; i < devices.length; i++) {
+        let deviceId = devices[i];
+        let data = await contract1.methods.retrieveValue(deviceId).call()
+        devices[i] = await giveJSON(data)
+    }
     resp.send(devices)
 
 
@@ -226,23 +238,21 @@ router.post('/checkuserdata', async (req, resp) => {
     web3WithPrivateKey1.eth.accounts.wallet.add(yourAccount1);
     const contract1 = new web3WithPrivateKey1.eth.Contract(contractData1.abi, contractData1.address);
     const { divideData, combineData } = require('../Tools/DataHandling')
-    let userId=req.body.userId
-    let policiesId=req.body.policiesId
+    let userId = req.body.userId
+    let policiesId = req.body.policiesId
     console.log(policiesId)
-    for(let i=0;i<policiesId.length;i++)
-    {
-        let policyId=policiesId[i].id
-        let userpolicy=userId+policyId
-        let response1=await contract.methods.getUserPrivacyPolicy(userpolicy).call();
-        let response2=await contract1.methods.getUserPrivacyPolicy(userpolicy).call();
-        let p=[]
-        p.push(Buffer.from(response1,'base64'))
-        p.push(Buffer.from(response2,'base64'))
-        
-        let data=await giveJSON(combineData(p));
-        
-        if(data)
-        {
+    for (let i = 0; i < policiesId.length; i++) {
+        let policyId = policiesId[i].id
+        let userpolicy = userId + policyId
+        let response1 = await contract.methods.getUserPrivacyPolicy(userpolicy).call();
+        let response2 = await contract1.methods.getUserPrivacyPolicy(userpolicy).call();
+        let p = []
+        p.push(Buffer.from(response1, 'base64'))
+        p.push(Buffer.from(response2, 'base64'))
+
+        let data = await giveJSON(combineData(p));
+
+        if (data) {
             console.log(data)
             resp.send(data)
         }

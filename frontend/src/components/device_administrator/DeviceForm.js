@@ -54,7 +54,7 @@ const DeviceForm = () => {
         deviceType: '',
         deviceManufacturer: '',
         manufacturerUrl: '',
-        policies: [],
+        privacyPolicies: [],
     });
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -70,8 +70,8 @@ const DeviceForm = () => {
     const handleAddPolicy = () => {
         setDeviceInfo((prevInfo) => ({
             ...prevInfo,
-            policies: [
-                ...prevInfo.policies,
+            privacyPolicies: [
+                ...prevInfo.privacyPolicies,
                 {
                     policyName: '',
                     policyDescription: '',
@@ -85,7 +85,7 @@ const DeviceForm = () => {
     const handlePolicyChange = (index, key, value) => {
         setDeviceInfo((prevInfo) => ({
             ...prevInfo,
-            policies: prevInfo.policies.map((policy, i) =>
+            privacyPolicies: prevInfo.privacyPolicies.map((policy, i) =>
                 i === index ? { ...policy, [key]: value } : policy
             ),
         }));
@@ -95,7 +95,7 @@ const DeviceForm = () => {
     const handleAddPolicyPoint = (index) => {
         setDeviceInfo((prevInfo) => ({
             ...prevInfo,
-            policies: prevInfo.policies.map((policy, i) =>
+            privacyPolicies: prevInfo.privacyPolicies.map((policy, i) =>
                 i === index
                     ? {
                         ...policy,
@@ -113,7 +113,7 @@ const DeviceForm = () => {
     const handlePolicyPointChange = (policyIndex, pointIndex, key, value) => {
         setDeviceInfo((prevInfo) => ({
             ...prevInfo,
-            policies: prevInfo.policies.map((policy, i) =>
+            privacyPolicies: prevInfo.privacyPolicies.map((policy, i) =>
                 i === policyIndex
                     ? {
                         ...policy,
@@ -239,7 +239,7 @@ const DeviceForm = () => {
                 <FormButton type="button" onClick={handleAddPolicy}>
                     Add Policy
                 </FormButton>
-                {deviceInfo.policies.map((policy, index) => (
+                {deviceInfo.privacyPolicies.map((policy, index) => (
                     <PolicyContainer key={index}>
                         {/* <PolicyNumber>{index + 1}.</PolicyNumber> */}
                         <OuterPolicyContent>

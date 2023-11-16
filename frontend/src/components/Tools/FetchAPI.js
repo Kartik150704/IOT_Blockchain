@@ -4,7 +4,7 @@ async function fetchAPI(endpoint, method, data) {
         headers: { 'Content-Type': 'application/json' }
     };
 
-    if (data) {
+    if (data && method!='GET') {
         requestOptions.body = JSON.stringify(data);
     }
 
