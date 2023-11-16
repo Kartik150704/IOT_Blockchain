@@ -96,7 +96,7 @@ const GeneralDashboard = () => {
 
         <Button onClick={generateKeys}>Generate Keys</Button>
         <KeysContainer>
-          <h2>If keys are not downloaded automatically , click here to download</h2>
+          <h4>If keys are not downloaded automatically , click here to download</h4>
           <Button onClick={downloadKeysManually}>Download</Button>
         </KeysContainer>
 

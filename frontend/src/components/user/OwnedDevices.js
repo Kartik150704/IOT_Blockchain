@@ -21,6 +21,10 @@ const DeviceCard = styled.div`
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: scale(1.05);
@@ -28,10 +32,7 @@ const DeviceCard = styled.div`
 `;
 
 const UpdatePolicyButton = styled.button`
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   background-color: #4caf50;
   color: white;
   padding: 8px 12px;
@@ -113,7 +114,7 @@ const OwnedDevices = () => {
         {devicesData.map((device) => (
           <DeviceCard key={device.deviceId} onClick={() => handleDeviceClick(device)}>
             <h3>{device.deviceName}</h3>
-            <p>Hash: {device.deviceHash}</p>
+            {/* <p>Hash: {device.deviceHash}</p> */}
             <UpdatePolicyButton onClick={handleUpdatePoliciesClick}>Update Policy</UpdatePolicyButton>
           </DeviceCard>
         ))}

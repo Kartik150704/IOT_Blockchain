@@ -1,5 +1,58 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { fetchAPI } from '../Tools/FetchAPI';
+
+const FormContainer = styled.form`
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+`;
+
+const FormGroup = styled.div`
+    margin-bottom: 20px;
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+`;
+
+const SubmitButton = styled.button`
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #2980b9;
+    }
+`;
+
 
 
 const PolicyForm = () => {
@@ -55,6 +108,7 @@ const PolicyForm = () => {
     const addPolicyIdInput = () => {
         setpoliciesId([...policiesId, '']); // Add an empty input for a new policyId
     };
+
     function readFileAsText(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -75,6 +129,8 @@ const PolicyForm = () => {
             }
         });
     }
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         
@@ -85,12 +141,12 @@ const PolicyForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
+        <FormContainer onSubmit={handleSubmit}>
+            <FormGroup>
                 <label htmlFor="userId">User ID:</label>
                 <input type="file" id="userId" onChange={handleFileChange} />
-            </div>
-            <div>
+            </FormGroup>
+            <FormGroup>
                 <label>Policy IDs:</label>
                 {policiesId.map((policyId, index) => (
                     <div key={index}>
@@ -104,9 +160,9 @@ const PolicyForm = () => {
                 <button type="button" onClick={addPolicyIdInput}>
                     Add Policy
                 </button>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+            </FormGroup>
+            <SubmitButton type="submit">Submit</SubmitButton>
+        </FormContainer>
     );
 };
 

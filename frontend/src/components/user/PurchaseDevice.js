@@ -173,25 +173,28 @@ const PurchaseDevice = () => {
         <CustomModalContent onClick={(e) => e.stopPropagation()}>
           {selectedDevice && (
             <>
+              {console.log(selectedDevice)}
               <h2>{selectedDevice.deviceName}</h2>
               <p><b>Device ID:</b> {selectedDevice.deviceId}</p>
               <p><b>Device Type:</b> {selectedDevice.deviceType}</p>
               <p><b>Device Manufacturer:</b> {selectedDevice.deviceManufacturer}</p>
               <p><b>Manufacturer URL:</b> {selectedDevice.manufacturerUrl}</p>
               <h3><b>Privacy Policies:</b></h3>
-              {/* <ul>
+              {/* {console.log("selected ", selectedDevice.privacyPolicies[0].policyName)} */}
+                
+              <ul>
                 {selectedDevice.privacyPolicies.map((policy, index) => (
                   <li key={index}>
-                    <strong>{policy.policyName}</strong>
+                    <strong >{policy.policyName}</strong>
                     <p>{policy.policyDescription}</p>
                     <ul>
                       {policy.policyPoints.map((point, pointIndex) => (
-                        <li key={pointIndex}>{point}</li>
+                        <li key={pointIndex}>{point.header}</li>
                       ))}
                     </ul>
                   </li>
                 ))}
-              </ul> */}
+              </ul>
               <PurchaseButton onClick={purchaseDevice}>Purchase</PurchaseButton>
               <CloseButton onClick={closeModal}>Close</CloseButton>
             </>

@@ -1,59 +1,68 @@
 .toggle-container {
     display: flex;
+    /* flex-direction: column; Display the toggle button and options in a column layout */
+    /* align-items: left; */
     align-items: center;
-}
-
-.cylinder {
-    width: 80px;
-    height: 40px;
+    margin: 10px 0; /* Proper spacing above and below the toggle button */
+    /* border: 2px solid red; */
+  }
+  
+  .cylinder {
+    width: 60px; /* Reduced width for a shorter toggle button */
+    height: 20px;
     border: 1px solid #000;
     border-radius: 20px;
     position: relative;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-.ball {
-    width: 30px;
-    height: 30px;
+  }
+  
+  .ball {
+    width: 20px; /* Reduced width for a smaller ball */
+    height: 20px;
     border-radius: 50%;
     background-color: rgb(187, 5, 5);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-
-}
-
-.ball.left {
-    left: 5px;
-}
-
-.ball.right {
-    right: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .ball.left {
+    left: 2px; /* Adjusted position for the left ball */
+  }
+  
+  .ball.right {
+    right: 2px; /* Adjusted position for the right ball */
     background-color: #049b04;
-}
-
-.options {
+  }
+  
+  .options {
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
-}
-
-.option {
+  }
+  
+  .option {
     padding: 5px;
     cursor: pointer;
-}
-
-.option.active {
+    transition: color 0.3s ease;
+  }
+  
+  .option.active {
     font-weight: bold;
-}
-
-.right .ball {
+    color: #049b04;
+  }
+  
+  .right .ball {
     background-color: #00ff00;
-    transition: left 1s ease-in-out;
-}
-
-.left .ball {
+  }
+  
+  .left .ball {
     background-color: #ff0000;
-    transition: left 1s ease-in-out;
-}
+  }
+  
+  .cylinder:hover {
+    background-color: #f0f0f0;
+  }
+  

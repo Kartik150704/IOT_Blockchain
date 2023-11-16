@@ -22,6 +22,7 @@ const App = () => {
           <Route path='/UserDashboard' element={<UserDashboard />} />
           <Route path='/admin/adddevice' element={<DeviceForm/>}/>
           <Route path='/admin/checkuserdata' element={<CheckUserData/>}/>
+          <Route path='/generalDashboard' element={<GeneralDashboard/>}/>
         {/* <DeviceForm /> */}
         {/* <DeviceList /> */}
         {/* <UserDashboard /> */}
