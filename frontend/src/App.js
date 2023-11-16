@@ -7,6 +7,7 @@ import PurchaseDevice from './components/user/PurchaseDevice'
 import LoginPage from './components/user/LoginPage'
 import GeneralDashboard from './components/user/GeneralDashboard'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CheckUserData from './components/device_administrator/CheckUserData'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path='/UserDashboard/PurchaseDevice' element={<PurchaseDevice />} />
           <Route path='/UserDashboard' element={<UserDashboard />} />
           <Route path='/admin/adddevice' element={<DeviceForm/>}/>
+          <Route path='/admin/checkuserdata' element={<CheckUserData/>}/>
         {/* <DeviceForm /> */}
         {/* <DeviceList /> */}
         {/* <UserDashboard /> */}

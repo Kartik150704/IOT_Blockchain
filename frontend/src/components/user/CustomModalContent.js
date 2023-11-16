@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ToggleButton from '../Tools/ToggleButton';
+import { fetchAPI } from '../Tools/FetchAPI';
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -88,90 +89,106 @@ const PolicyListItem = styled.li`
 `;
 
 const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPolicies }) => {
-    const [updatedPolicies, setUpdatedPolicies] = useState(privacyPolicies);
-  
-    if (!selectedDevice) {
-      return null;
-    }
-  
-    const handleAcceptPolicy = (policyName) => {
-      const updatedPolicy = {
-        id: policyName,
-        status: true,
-        data : {
-            location:"checking"
-        }
-      };
+  const [updatedPolicies, setUpdatedPolicies] = useState(privacyPolicies);
+  const [userData, setuserData] = useState({
+    userId: localStorage.getItem('publickey'),
+    policies: [
 
-    //   console.log(updatedPolicy)
-  
-      setUpdatedPolicies((prevPolicies) =>
-        prevPolicies.map((policy) =>
-          policy.policyName === policyName ? updatedPolicy : policy
-        )
-      );
-    };
-  
-    const handleDeclinePolicy = (policyName) => {
-      const updatedPolicy = {
-        id: policyName,
-        status: false,
-        data:
-        {
-            location:"checking"
-        }
-      };
-  
-        // console.log(updatedPolicy)
-      setUpdatedPolicies((prevPolicies) =>
-        prevPolicies.map((policy) =>
-          policy.policyName === policyName ? updatedPolicy : policy
-        )
-      );
-    };
-  
-    const handleToggleChange = (policyName, selectedOption) => {
-      if (selectedOption === "Option A") {
-        handleDeclinePolicy(policyName);
-      } else if (selectedOption === "Option B") {
-        handleAcceptPolicy(policyName);
+    ]
+  })
+  if (!selectedDevice) {
+    return null;
+  }
+
+  const handleAcceptPolicy = (policyName) => {
+    const updatedPolicy = {
+      id: policyName,
+      status: true,
+      data: {
+        location: "checking"
       }
     };
-  
-    const handleSaveChanges = () => {
-       
-        const data = {
-            "userId" : localStorage.getItem('publickey'),
-            "policies" : {updatedPolicies}
-        }
-      console.log(data);
-      handleSave(selectedDevice, updatedPolicies);
-      // closeModal();
-    };
-  
-    return (
-      <ModalOverlay>
-        <ModalContent>
-          {/* ... (existing content) */}
-          <h3><b>Privacy Policies:</b></h3>
-          <PolicyList>
-            {selectedDevice.privacyPolicies.map((policy, index) => (
-              <PolicyListItem key={index}>
-                <strong>{policy.policyName}</strong>
-                <p>{policy.policyDescription}</p>
-                <ToggleButton
-                  option1="Option A"
-                  option2="Option B"
-                  onOptionChange={(selectedOption) => handleToggleChange(policy.policyName, selectedOption)}
-                />
-              </PolicyListItem>
-            ))}
-          </PolicyList>
-          <SaveButton onClick={handleSaveChanges}>Save</SaveButton>
-          <CloseButton onClick={closeModal}>Close</CloseButton>
-        </ModalContent>
-      </ModalOverlay>
+    const updatedUserData = { ...userData };
+    const policyIndex = updatedUserData.policies.findIndex(
+      (policy) => policy.id === updatedPolicy.id
     );
+    if (policyIndex !== -1) {
+
+      updatedUserData.policies[policyIndex] = updatedPolicy;
+    } else {
+
+      updatedUserData.policies.push(updatedPolicy);
+    }
+
+
   };
-  
-  export default CustomModalContent;
+
+  const handleDeclinePolicy = (policyName) => {
+    const updatedPolicy = {
+      id: policyName,
+      status: false,
+      data:
+      {
+        location: "checking"
+      }
+    };
+
+    // console.log(updatedPolicy)
+    const updatedUserData = { ...userData };
+    const policyIndex = updatedUserData.policies.findIndex(
+      (policy) => policy.id === updatedPolicy.id
+    );
+    if (policyIndex !== -1) {
+
+      updatedUserData.policies[policyIndex] = updatedPolicy;
+    } else {
+
+      updatedUserData.policies.push(updatedPolicy);
+    }
+  };
+
+  const handleToggleChange = (policyName, selectedOption) => {
+
+    console.log(userData)
+    if (selectedOption === "Declined") {
+      handleDeclinePolicy(policyName);
+    } else if (selectedOption === "Accepted") {
+      handleAcceptPolicy(policyName);
+    }
+  };
+
+  const handleSaveChanges =async  () => {
+
+   
+    console.log(privacyPolicies)
+    handleSave(selectedDevice, userData);
+    let response=await fetchAPI('http://localhost:8000/gateway/saveuserdata',"POST",userData)
+    console.log(response)
+  };
+
+  return (
+    <ModalOverlay>
+      <ModalContent>
+        {/* ... (existing content) */}
+        <h3><b>Privacy Policies:</b></h3>
+        <PolicyList>
+          {selectedDevice.privacyPolicies.map((policy, index) => (
+            <PolicyListItem key={index}>
+              <strong>{policy.policyName}</strong>
+              <p>{policy.policyDescription}</p>
+              <ToggleButton
+                option1="Declined"
+                option2="Accepted"
+                onOptionChange={(selectedOption) => handleToggleChange(policy.policyName, selectedOption)}
+              />
+            </PolicyListItem>
+          ))}
+        </PolicyList>
+        <SaveButton onClick={handleSaveChanges}>Save</SaveButton>
+        <CloseButton onClick={closeModal}>Close</CloseButton>
+      </ModalContent>
+    </ModalOverlay>
+  );
+};
+
+export default CustomModalContent;

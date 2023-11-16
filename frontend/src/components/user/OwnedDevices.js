@@ -95,16 +95,7 @@ const OwnedDevices = () => {
   };
 
   const handleSave = (device, data) => {
-    // Retrieve existing policies from localStorage
-    // console.log(updatedPolicies)
-    // const existingPoliciesString = localStorage.getItem('updatedPolicies');
-    // const existingPolicies = existingPoliciesString ? JSON.parse(existingPoliciesString) : {};
-
-    // // Assume device.deviceId is unique
-    // existingPolicies[device.deviceId] = updatedPolicies;
-
-    // // Save updated policies back to localStorage
-    // localStorage.setItem('updatedPolicies', JSON.stringify(existingPolicies));
+    console.log(data)
   };
 
 

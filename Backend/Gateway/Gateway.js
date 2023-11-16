@@ -146,7 +146,7 @@ router.post('/deviceinfo', async (req, resp) => {
 
 
 router.post('/saveuserdata', async (req, resp) => {
-
+    console.log(req.body)
     const contractData = require('./GatewayData.json')
     const web3WithPrivateKey = new Web3(new Web3.providers.HttpProvider(web3Node));
     const yourAccount = web3WithPrivateKey.eth.accounts.privateKeyToAccount(privateKey);
@@ -201,10 +201,13 @@ router.post('/saveuserdata', async (req, resp) => {
 
     };
 
-    resp.send("Done")
+    resp.send({
+        status: "Successful"
+    })
 })
 
 router.post('/getuserdata', async (req, resp) => {
+
     const contractData = require('./GatewayData.json')
     const web3WithPrivateKey = new Web3(new Web3.providers.HttpProvider(web3Node));
     const yourAccount = web3WithPrivateKey.eth.accounts.privateKeyToAccount(privateKey);
@@ -226,6 +229,8 @@ router.post('/getuserdata', async (req, resp) => {
 })
 
 router.post('/checkuserdata', async (req, resp) => {
+
+    console.log(req.body)
     const contractData = require('./GatewayData.json');
     const web3WithPrivateKey = new Web3(new Web3.providers.HttpProvider(web3Node));
     const yourAccount = web3WithPrivateKey.eth.accounts.privateKeyToAccount(privateKey);
@@ -240,29 +245,31 @@ router.post('/checkuserdata', async (req, resp) => {
     const { divideData, combineData } = require('../Tools/DataHandling')
     let userId = req.body.userId
     let policiesId = req.body.policiesId
-    console.log(policiesId)
+    let userData = []
     for (let i = 0; i < policiesId.length; i++) {
-        let policyId = policiesId[i].id
+        let policyId = policiesId[i]
         let userpolicy = userId + policyId
         let response1 = await contract.methods.getUserPrivacyPolicy(userpolicy).call();
         let response2 = await contract1.methods.getUserPrivacyPolicy(userpolicy).call();
         let p = []
-        p.push(Buffer.from(response1, 'base64'))
+        p.push(Buffer.from(response1, 'base64'));
         p.push(Buffer.from(response2, 'base64'))
+
         let data
         try {
             data = await giveJSON(combineData(p));
+            userData.push(data)
         } catch (error) {
-            
+
             data = null; // Store null if an error occurs during the function call
+            userData.push(data)
         }
 
-        if (data) {
-            console.log(data)
-            resp.send(data)
-        }
 
     }
+    resp.send({
+        data: userData
+    })
 
 })
 router.get('/generatekeys', async (req, resp) => {
