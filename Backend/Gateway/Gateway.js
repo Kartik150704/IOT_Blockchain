@@ -249,8 +249,13 @@ router.post('/checkuserdata', async (req, resp) => {
         let p = []
         p.push(Buffer.from(response1, 'base64'))
         p.push(Buffer.from(response2, 'base64'))
-
-        let data = await giveJSON(combineData(p));
+        let data
+        try {
+            data = await giveJSON(combineData(p));
+        } catch (error) {
+            
+            data = null; // Store null if an error occurs during the function call
+        }
 
         if (data) {
             console.log(data)

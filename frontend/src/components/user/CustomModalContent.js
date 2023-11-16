@@ -137,7 +137,7 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
     <ModalOverlay>
       <ModalContent>
         <div>
-          <ToggleButton option1="Option A" option2="Option B" onOptionChange={selected}/>
+          <ToggleButton option1="Declined" option2="Accepted" onOptionChange={selected}/>
         </div>
         <h2>{selectedDevice.deviceName}</h2>
         <p><b>Device ID:</b> {selectedDevice.deviceId}</p>
