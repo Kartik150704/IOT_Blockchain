@@ -88,78 +88,90 @@ const PolicyListItem = styled.li`
 `;
 
 const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPolicies }) => {
-  const [updatedPolicies, setUpdatedPolicies] = useState(privacyPolicies);
+    const [updatedPolicies, setUpdatedPolicies] = useState(privacyPolicies);
+  
+    if (!selectedDevice) {
+      return null;
+    }
+  
+    const handleAcceptPolicy = (policyName) => {
+      const updatedPolicy = {
+        id: policyName,
+        status: true,
+        data : {
+            location:"checking"
+        }
+      };
 
-  if (!selectedDevice) {
-    return null;
-  }
-
-  const handleAcceptPolicy = (policyName) => {
-
-    // console.log(policyName)
-    const updatedPolicy = {
-      policyName: policyName,
-      status: 'accepted',
+    //   console.log(updatedPolicy)
+  
+      setUpdatedPolicies((prevPolicies) =>
+        prevPolicies.map((policy) =>
+          policy.policyName === policyName ? updatedPolicy : policy
+        )
+      );
     };
-
-    setUpdatedPolicies((prevPolicies) =>
-      prevPolicies.map((policy) =>
-        policy.policyName === policyName ? updatedPolicy : policy
-      )
-    );
-
-    console.log(updatedPolicies)
-  };
-
-  const handleDeclinePolicy = (policyName) => {
-    const updatedPolicy = {
-      policyName: policyName,
-      status: 'declined',
+  
+    const handleDeclinePolicy = (policyName) => {
+      const updatedPolicy = {
+        id: policyName,
+        status: false,
+        data:
+        {
+            location:"checking"
+        }
+      };
+  
+        // console.log(updatedPolicy)
+      setUpdatedPolicies((prevPolicies) =>
+        prevPolicies.map((policy) =>
+          policy.policyName === policyName ? updatedPolicy : policy
+        )
+      );
     };
-
-    setUpdatedPolicies((prevPolicies) =>
-      prevPolicies.map((policy) =>
-        policy.policyName === policyName ? updatedPolicy : policy
-      )
+  
+    const handleToggleChange = (policyName, selectedOption) => {
+      if (selectedOption === "Option A") {
+        handleDeclinePolicy(policyName);
+      } else if (selectedOption === "Option B") {
+        handleAcceptPolicy(policyName);
+      }
+    };
+  
+    const handleSaveChanges = () => {
+       
+        const data = {
+            "userId" : localStorage.getItem('publickey'),
+            "policies" : {updatedPolicies}
+        }
+      console.log(data);
+      handleSave(selectedDevice, updatedPolicies);
+      // closeModal();
+    };
+  
+    return (
+      <ModalOverlay>
+        <ModalContent>
+          {/* ... (existing content) */}
+          <h3><b>Privacy Policies:</b></h3>
+          <PolicyList>
+            {selectedDevice.privacyPolicies.map((policy, index) => (
+              <PolicyListItem key={index}>
+                <strong>{policy.policyName}</strong>
+                <p>{policy.policyDescription}</p>
+                <ToggleButton
+                  option1="Option A"
+                  option2="Option B"
+                  onOptionChange={(selectedOption) => handleToggleChange(policy.policyName, selectedOption)}
+                />
+              </PolicyListItem>
+            ))}
+          </PolicyList>
+          <SaveButton onClick={handleSaveChanges}>Save</SaveButton>
+          <CloseButton onClick={closeModal}>Close</CloseButton>
+        </ModalContent>
+      </ModalOverlay>
     );
   };
-
-  const handleSaveChanges = () => {
-    console.log(updatedPolicies)
-    handleSave(selectedDevice, updatedPolicies);
-    // closeModal();
-  };
-  const selected=(selectedoption)=>
-  {
-    console.log(selectedoption)
-  }
-  return (
-    <ModalOverlay>
-      <ModalContent>
-        <div>
-          <ToggleButton option1="Declined" option2="Accepted" onOptionChange={selected}/>
-        </div>
-        <h2>{selectedDevice.deviceName}</h2>
-        <p><b>Device ID:</b> {selectedDevice.deviceId}</p>
-        <p><b>Device Type:</b> {selectedDevice.deviceType}</p>
-        <p><b>Device Manufacturer:</b> {selectedDevice.deviceManufacturer}</p>
-        <p><b>Manufacturer URL:</b> {selectedDevice.manufacturerUrl}</p>
-        <h3><b>Privacy Policies:</b></h3>
-        <PolicyList>
-          {selectedDevice.privacyPolicies.map((policy, index) => (
-            <PolicyListItem key={index}>
-              <strong>{policy.policyName}</strong>
-              <p>{policy.policyDescription}</p>
-              <AcceptButton onClick={() => handleAcceptPolicy(policy.policyName)}>Accept</AcceptButton>
-              <DeclineButton onClick={() => handleDeclinePolicy(policy.policyName)}>Decline</DeclineButton>
-            </PolicyListItem>
-          ))}
-        </PolicyList>
-        <SaveButton onClick={handleSaveChanges}>Save</SaveButton>
-        <CloseButton onClick={closeModal}>Close</CloseButton>
-      </ModalContent>
-    </ModalOverlay>
-  );
-};
-
-export default CustomModalContent;
+  
+  export default CustomModalContent;
