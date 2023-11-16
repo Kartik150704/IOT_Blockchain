@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fetchAPI } from '../Tools/FetchAPI';
 import DropdownComponent from '../Tools/DropDown';
+import LoadingScreen from '../Screens/LoadingScreen'
 const FormContainer = styled.form`
     max-width: 400px;
     margin: 0 auto;
@@ -63,6 +64,7 @@ const PolicyForm = () => {
         policiesId: [''],
     });
     const [userData, setUserData] = useState([])
+    const [loading,setloading]=useState(false)
 
     const handleUserIdChange = async (event) => {
         const file = event.target.files[0];
@@ -135,10 +137,11 @@ const PolicyForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        
+        setloading(true)
         let response = await fetchAPI('http://localhost:8000/gateway/checkuserdata', "POST", formData)
         
         setUserData(response.data)
+        setloading(false)
 
     };
 
@@ -146,6 +149,7 @@ const PolicyForm = () => {
         <>
         <DropdownComponent/>
         <FormContainer onSubmit={handleSubmit}>
+        {loading && <LoadingScreen message="checking for Data"/>}
             <FormGroup>
                 <label htmlFor="userId">User ID:</label>
                 <input type="file" id="userId" onChange={handleFileChange} />

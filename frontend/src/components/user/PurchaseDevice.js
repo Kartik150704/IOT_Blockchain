@@ -2,7 +2,7 @@
 import React, { useState ,useEffect } from 'react';
 import styled from 'styled-components';
 import { fetchAPI } from '../Tools/FetchAPI';
-
+import LoadingScreen from '../Screens/LoadingScreen';
 // import { Link } from 'react-router-dom'; // Assuming you are using React Router
 
 
@@ -105,6 +105,7 @@ const PurchaseDevice = () => {
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [devicesData, setDevicesData] = useState([])
+  const [loading,setloading]=useState(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -144,13 +145,14 @@ const PurchaseDevice = () => {
           device:selectedDevice.deviceId,
 
       }
-
+      setloading(true)
       let response=await fetchAPI('http://localhost:8000/gateway/savedevice',"POST",options);
       console.log(response);
+      setloading(false)
   }
   return (
     <div>
-
+      {loading && <LoadingScreen message="Purchasing Device....."/>}
       <Navbar>
         <NavbarLogo>Purchase Devices</NavbarLogo>
         {/* <NavbarLinks> */}

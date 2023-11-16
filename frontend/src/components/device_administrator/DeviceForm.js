@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import DropdownComponent from '../Tools/DropDown';
+import LoadingScreen from '../Screens/LoadingScreen';
 import {
     FormContainer,
     FormLabel,
@@ -60,7 +61,7 @@ const DeviceForm = () => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-
+    const [loading ,setLoading]=useState(false)
     // Handler for input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -132,7 +133,7 @@ const DeviceForm = () => {
         e.preventDefault();
 
         try {
-            // Send the form data to the backend endpoint using fetch
+            setLoading(true)
             const response = await fetch('http://localhost:8000/administrator/savedevice', {
                 method: 'POST',
                 headers: {
@@ -148,6 +149,7 @@ const DeviceForm = () => {
             const responseData = await response.json();
 
             let details=JSON.stringify(responseData.details)
+            setLoading(false)
             if (responseData.ok) {
                 
                 setModalMessage(`Device Information has been saved successfully
@@ -181,6 +183,7 @@ const DeviceForm = () => {
 
     return (
         <>
+            {loading && <LoadingScreen message="Saving Device to backend"/>}
             <Navbar>
                 <NavbarLogo>Device List</NavbarLogo>
             <DropdownComponent/>

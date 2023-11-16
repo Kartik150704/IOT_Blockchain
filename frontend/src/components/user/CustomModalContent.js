@@ -1,8 +1,9 @@
 // CustomModalContent.js
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ToggleButton from '../Tools/ToggleButton';
 import { fetchAPI } from '../Tools/FetchAPI';
+import LoadingScreen from '../Screens/LoadingScreen';
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -102,6 +103,7 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
     const [updatedPolicies, setUpdatedPolicies] = useState(privacyPolicies);
     const [inputDataByPolicy, setInputDataByPolicy] = useState([]);
     const [acceptedPolicies, setAcceptedPolicies] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     const [userData, setuserData] = useState({
         userId: localStorage.getItem('publickey'),
@@ -111,12 +113,19 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
     })
 
     useEffect(() => {
-        let data = inputDataByPolicy
-        privacyPolicies.map((policy) => {
-            data = [...data, {"policyName" : policy.policyName, value : ""}]
-        })
-        setInputDataByPolicy(data)
-        
+        let data = inputDataByPolicy.slice(); // Creating a copy of inputDataByPolicy
+        privacyPolicies.forEach((policy) => {
+            // Check if the policy is already present in the inputDataByPolicy
+            const policyExists = data.some((item) => item.policyName === policy.policyName);
+
+            // If the policy doesn't exist, add it to the data
+            if (!policyExists) {
+                data = [...data, { "policyName": policy.policyName, value: "" }];
+            }
+        });
+
+        setInputDataByPolicy(data);
+
     }, [])
 
 
@@ -124,7 +133,7 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
         return null;
     }
 
-    
+
 
     const handleAcceptPolicy = (policyName) => {
 
@@ -190,98 +199,104 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
 
     const handleSaveChanges = async () => {
 
-        console.log("INPUT DATA : ",inputDataByPolicy)
+        console.log("INPUT DATA : ", inputDataByPolicy)
         console.log("ACCEPTED : ", acceptedPolicies)
         // console.log("ACCEPTED : ". acceptedPolicies.includes("Policy 1"))
         // console.log("LENGTH ", inputDataByPolicy.length)
+        setLoading(true)
         const updatedUserData = {
             userId: localStorage.getItem('publickey'),
             policies: [
-    
+
             ]
         }
 
-        
+
+
         inputDataByPolicy.map((policy) => {
             const updatedPolicy = {
                 id: policy.policyName,
                 status: acceptedPolicies.length !== 0 && acceptedPolicies.includes(policy.policyName) === true ? true : false,
                 data:
                 {
-                    VALUE : policy.value 
+                    VALUE: policy.value
                 }
             };
 
             // console.log(updatedPolicy)
             updatedUserData.policies.push(updatedPolicy)
         })
-        
+
         console.log("USER DATA : ", updatedUserData)
 
         // handleSave(selectedDevice, );
         let response = await fetchAPI('http://localhost:8000/gateway/saveuserdata', "POST", updatedUserData)
         console.log(response)
+        setLoading(false)
     };
 
     return (
-        <ModalOverlay>
-            <ModalContent>
-                {/* ... (existing content) */}
-                <h3><b>Privacy Policies:</b></h3>
-                <PolicyList>
-                    {selectedDevice.privacyPolicies.map((policy, index) => (
-                        <PolicyListItem key={index}>
-                            <li key={index}>
-                                <strong>{policy.policyName}</strong>
-                                <p>{policy.policyDescription}</p>
-                                <ul>
-                                    {policy.policyPoints.map((point, pointIndex) => (
-                                        <li key={pointIndex}>{point.header}</li>
-                                    ))}
-                                </ul>
-                            </li>
+        <>
+            {loading && <LoadingScreen message="Updating Privacy Policies....." />}
+            <ModalOverlay>
+                <ModalContent>
+                    {/* ... (existing content) */}
+                    <h3><b>Privacy Policies:</b></h3>
+                    <PolicyList>
+                        {selectedDevice.privacyPolicies.map((policy, index) => (
+                            <PolicyListItem key={index}>
+                                <li key={index}>
+                                    <strong>{policy.policyName}</strong>
+                                    <p>{policy.policyDescription}</p>
+                                    <ul>
+                                        {policy.policyPoints.map((point, pointIndex) => (
+                                            <li key={pointIndex}>{point.header}</li>
+                                        ))}
+                                    </ul>
+                                </li>
 
-                            <ToggleButton
-                                option1="Declined"
-                                option2="Accepted"
-                                onOptionChange={(selectedOption) => handleToggleChange(policy.policyName, selectedOption)}
-                            />
-
-                            <div>
-                                <label htmlFor={`userDataInput_${policy.policyName}`}>Enter Data:</label>
-                                <CustomInput
-                                    type="text"
-                                    id={`userDataInput_${policy.policyName}`}
-                                    value={
-                                        inputDataByPolicy.find((data) => data.policyName === policy.policyName)?.value || ''
-                                    }
-                                    onChange={(e) => {
-                                        const newValue = e.target.value;
-                                        setInputDataByPolicy((prevInputData) => {
-                                            const existingDataIndex = prevInputData.findIndex((data) => data.policyName === policy.policyName);
-                                            if (existingDataIndex !== -1) {
-                                                // Update existing data
-                                                const updatedData = [...prevInputData];
-                                                updatedData[existingDataIndex] = { policyName: policy.policyName, value: newValue };
-                                                return updatedData;
-                                            } else {
-                                                // Add new data
-                                                return [...prevInputData, { policyName: policy.policyName, value: newValue }];
-                                            }
-                                        });
-                                        console.log(inputDataByPolicy.length)
-                                    }}
+                                <ToggleButton
+                                    option1="Declined"
+                                    option2="Accepted"
+                                    onOptionChange={(selectedOption) => handleToggleChange(policy.policyName, selectedOption)}
                                 />
-                            </div>
-                        </PolicyListItem>
+
+                                <div>
+                                    <label htmlFor={`userDataInput_${policy.policyName}`}>Enter Data:</label>
+                                    <CustomInput
+                                        type="text"
+                                        id={`userDataInput_${policy.policyName}`}
+                                        value={
+                                            inputDataByPolicy.find((data) => data.policyName === policy.policyName)?.value || ''
+                                        }
+                                        onChange={(e) => {
+                                            const newValue = e.target.value;
+                                            setInputDataByPolicy((prevInputData) => {
+                                                const existingDataIndex = prevInputData.findIndex((data) => data.policyName === policy.policyName);
+                                                if (existingDataIndex !== -1) {
+                                                    // Update existing data
+                                                    const updatedData = [...prevInputData];
+                                                    updatedData[existingDataIndex] = { policyName: policy.policyName, value: newValue };
+                                                    return updatedData;
+                                                } else {
+                                                    // Add new data
+                                                    return [...prevInputData, { policyName: policy.policyName, value: newValue }];
+                                                }
+                                            });
+                                            console.log(inputDataByPolicy.length)
+                                        }}
+                                    />
+                                </div>
+                            </PolicyListItem>
 
 
-                    ))}
-                </PolicyList>
-                <SaveButton onClick={handleSaveChanges}>Save</SaveButton>
-                <CloseButton onClick={closeModal}>Close</CloseButton>
-            </ModalContent>
-        </ModalOverlay>
+                        ))}
+                    </PolicyList>
+                    <SaveButton onClick={handleSaveChanges}>Save</SaveButton>
+                    <CloseButton onClick={closeModal}>Close</CloseButton>
+                </ModalContent>
+            </ModalOverlay>
+        </>
     );
 };
 
