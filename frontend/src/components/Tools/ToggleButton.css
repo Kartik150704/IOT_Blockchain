@@ -1,0 +1,59 @@
+.toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.cylinder {
+    width: 80px;
+    height: 40px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(187, 5, 5);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+.ball.left {
+    left: 5px;
+}
+
+.ball.right {
+    right: 5px;
+    background-color: #049b04;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.option {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.option.active {
+    font-weight: bold;
+}
+
+.right .ball {
+    background-color: #00ff00;
+    transition: left 1s ease-in-out;
+}
+
+.left .ball {
+    background-color: #ff0000;
+    transition: left 1s ease-in-out;
+}

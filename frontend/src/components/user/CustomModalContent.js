@@ -1,7 +1,7 @@
 // CustomModalContent.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import ToggleButton from '../Tools/ToggleButton';
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -129,10 +129,16 @@ const CustomModalContent = ({ selectedDevice, closeModal, handleSave, privacyPol
     handleSave(selectedDevice, updatedPolicies);
     // closeModal();
   };
-
+  const selected=(selectedoption)=>
+  {
+    console.log(selectedoption)
+  }
   return (
     <ModalOverlay>
       <ModalContent>
+        <div>
+          <ToggleButton option1="Option A" option2="Option B" onOptionChange={selected}/>
+        </div>
         <h2>{selectedDevice.deviceName}</h2>
         <p><b>Device ID:</b> {selectedDevice.deviceId}</p>
         <p><b>Device Type:</b> {selectedDevice.deviceType}</p>
